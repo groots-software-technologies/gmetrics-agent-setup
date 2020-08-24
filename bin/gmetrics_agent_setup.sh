@@ -61,7 +61,9 @@ fi
 #######################################################
 REMOTEPACKAGE_RHEL_CENTOS="gmetrics-remote-el7-v4.3.2.2020.tar.gz"
 REMOTEPACKAGE_UBUNTU="gmetrics-remote-deb-v4.3.2.2020.tar.gz"
+GRPEPATH="/root/gmetricsdata/gmetrics-agent-setup/"
 CURRENTPATH=`pwd`
+
 
 # Gmetrics remote user addition.
 #######################################################
@@ -164,9 +166,7 @@ gmetrics_remote_centos7_plugins () {
 
 echo "#######################################################" | log
 echo "Downloading gmetrics-remote plugin on the system." | log
-#PLUGINSURL=https://grootsmonitoring-release.s3.ap-south-1.amazonaws.com/grootsmetrics-release/1.9.12/remote_host/el7/gmetrics-remote-el7-V2.1.20.tar.gz
-#wget $PLUGINSURL -P $PLUGINSDIR  | log
-cp -avp /root/groots-metrics/gmetrics-remote-agent/$REMOTEPACKAGE_RHEL_CENTOS $PLUGINSDIR/
+cp -avp $GRPEPATH/$REMOTEPACKAGE_RHEL_CENTOS $PLUGINSDIR/
 
 echo "Gmetrics remote plugin is successfully downloaded under \"$PLUGINSDIR\"" | log
 echo "Verify downloaded gmetrics-remote plugin." | log
@@ -202,9 +202,7 @@ gmetrics_remote_ubuntu_plugins () {
 
 echo "#######################################################" | log
 echo "Downloading gmetrics-remote plugin on the system." | log
-#PLUGINSURL="https://grootsmonitoring-release.s3.ap-south-1.amazonaws.com/grootsmetrics-release/1.9.12/remote_host/ubuntu/grootsmetrics1.9.12-deb.tar.gz"
-#wget $PLUGINSURL -P $PLUGINSDIR  | log
-cp -avp /root/groots-metrics/gmetrics-remote-agent/$REMOTEPACKAGE_UBUNTU $PLUGINSDIR/
+cp -avp $GRPEPATH/$REMOTEPACKAGE_UBUNTU $PLUGINSDIR/
 echo "Gmetrics remote plugin is successfully downloaded under \"$PLUGINSDIR\"" | log
 echo "Verify downloaded gmetrics-remote plugin." | log
 echo "#######################################################" | log
@@ -246,7 +244,7 @@ echo "gmetrics-remote 5666/tcp                # Gmetrics services" >> /etc/servi
 echo "Gmetrics remote service port successfully added in service config file." | log
 cat /etc/services | egrep  "gmetrics-remote" | log
 
- }
+}
 
 # Gmetrics remote user entry add in Sudoers File.
 #######################################################
