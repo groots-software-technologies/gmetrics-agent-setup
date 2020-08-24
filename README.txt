@@ -35,21 +35,7 @@ $ cd /root/gmetricsdata/
 
 * Pull from master branch.
 
-$ echo 'svn checkout https://github.com/grootsadmin/groots-metrics/trunk/gmetrics-remote-agent --non-interactive --no-auth-cache --username <ASSOCIATED USER> --password <ASSOCIATED PASSWORD>' > gmetrics-git.sh
-
-* Pull from specific branch.
-
-$ echo 'svn checkout https://github.com/grootsadmin/groots-metrics/branches/master/gmetrics-remote-agent --non-interactive --no-auth-cache --username <ASSOCIATED USER> --password <ASSOCIATED PASSWORD>' > gmetrics-git.sh
-
-# Edit and add git hub ASSOCIATED USER and PASSWORD.
-
-$ vi gmetrics-git.sh
-
-# Execute script.
-
-$ sh gmetrics-git.sh
-
-# Instruction 
+$ git clone https://github.com/grootsadmin/gmetrics-agent-setup.git
  
 * Installation of packages are commented, as the necessary packages can be installed manually later as required.
  
@@ -63,7 +49,7 @@ $ cd /root/gmetricsdata/gmetrics-remote-agent/
  
 * execute remote agent installation script (to be run as root),  
 
-$ sh /root/gmetricsdata/gmetrics-remote-agent/gmetrics_agent_setup.sh
+$ sh /root/gmetricsdata/gmetrics-remote-agent/bin/gmetrics_agent_setup.sh
 
 * If gmetrics-remote service does not started then refer installation log file which is generated at, 
   
@@ -71,7 +57,7 @@ $ cat /var/log/groots/gmetrics/gmetrics_agent_setup.sh.log
   
 * And gmetrics-remote service log file at, 
 
-$ cat /groots/monitoring/var/gmetrics-remote.log 
+$ cat /var/log/groots/gmetrics/gmetrics_agent_setup.sh.log
   
 # Testing gmetrics  remote agent.
 
@@ -88,71 +74,6 @@ $ telnet <REMOTE AGENT IP/HOSTNAME> 5666
 # Download plugin from github.
 
 * Gmetrics plugins directories are placed in
-
-$ cd /root/gmetricsdata/
-
-* Pull from master branch.
-
-$ echo 'svn checkout https://github.com/grootsadmin/groots-metrics/trunk/gmetrics-remote-plugin --non-interactive --no-auth-cache --username <ASSOCIATED USER> --password <ASSOCIATED PASSWORD>' > gmetrics-plugins-git.sh
-
-* Pull from specific branch.
-
-$ echo 'svn checkout https://github.com/grootsadmin/groots-metrics/branches/master/gmetrics-remote-plugin --non-interactive --no-auth-cache --username <ASSOCIATED USER> --password <ASSOCIATED PASSWORD>' > gmetrics-plugins-git.sh
-
-# Edit and add git hub ASSOCIATED USER and PASSWORD.
-
-$ vi gmetrics-plugins-git.sh
-
-# Execute script.
-
-$ sh gmetrics-plugins-git.sh
-
-$ cd /root/gmetricsdata/gmetrics-remote-plugin/
-
-$ /root/gmetricsdata/gmetrics-remote-plugin/
-  
-# Copy the plugins as per appllication and plugins should be placed under "/groots/monitoring/libexec" path.
-
-* cp -av /root/gmetricsdata/gmetrics-remote-plugin/<APPNAME DIR>/* /groots/monitoring/libexec/
-
-# Appsensors plugins : 
-$ cp -av /root/gmetricsdata/gmetrics-remote-plugin/appsensors/* /groots/monitoring/libexec/
-
-# Aws plugins 
-$ cp -av /root/gmetricsdata/gmetrics-remote-plugin/aws/* /groots/monitoring/libexec/  
-
-# Backup plugins 
-$ cp -av /root/gmetricsdata/gmetrics-remote-plugin/backup/* /groots/monitoring/libexec/  
-
-# Dnsrecords plugins 
-$ cp -av /root/gmetricsdata/gmetrics-remote-plugin/dnsrecords/* /groots/monitoring/libexec/  
-
-# Docker plugins 
-$ cp -av /root/gmetricsdata/gmetrics-remote-plugin/docker/* /groots/monitoring/libexec/
-
-# Expiry plugins 
-$ cp -av /root/gmetricsdata/gmetrics-remote-plugin/expiry/* /groots/monitoring/libexec/
-
-# Hardware plugins 
-$ cp -av /root/gmetricsdata/gmetrics-remote-plugin/hardware/* /groots/monitoring/libexec/
-
-# Kubernetes plugins 
-$ cp -av /root/gmetricsdata/gmetrics-remote-plugin/kubernetes/* /groots/monitoring/libexec/
-
-# Lamp plugins 
-$ cp -av /root/gmetricsdata/gmetrics-remote-plugin/lamp/* /groots/monitoring/libexec/
-
-# Mithi plugins 
-$ cp -av /root/gmetricsdata/gmetrics-remote-plugin/mithi/* /groots/monitoring/libexec/
-
-# Os plugins 
-$ cp -av /root/gmetricsdata/gmetrics-remote-plugin/os/* /groots/monitoring/libexec/
-
-# Website plugins 
-$ cp -av /root/gmetricsdata/gmetrics-remote-plugin/website/* /groots/monitoring/libexec/
-
-# Zimbra plugins
-$ cp -av /root/gmetricsdata/gmetrics-remote-plugin/zimbra/* /groots/monitoring/libexec/ 
 
 # Error : 
 If you got following error in monitoring.
