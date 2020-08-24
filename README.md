@@ -1,1 +1,0 @@
-# gmetrics-agent-setup
