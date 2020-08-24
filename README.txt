@@ -41,15 +41,15 @@ $ git clone https://github.com/grootsadmin/gmetrics-agent-setup.git
  
 * Gmetrics remote Agent tar files are placed in  
  
-$ cd /root/gmetricsdata/gmetrics-remote-agent/
+$ cd /root/gmetricsdata/gmetrics-agent-setup
   
 * Scripts are placed under 
  
-$ cd /root/gmetricsdata/gmetrics-remote-agent/  
+$ cd /root/gmetricsdata/gmetrics-agent-setup/
  
 * execute remote agent installation script (to be run as root),  
 
-$ sh /root/gmetricsdata/gmetrics-remote-agent/bin/gmetrics_agent_setup.sh
+$ sh /root/gmetricsdata/gmetrics-agent-setup/bin/gmetrics_agent_setup.sh
 
 * If gmetrics-remote service does not started then refer installation log file which is generated at, 
   
@@ -59,7 +59,7 @@ $ cat /var/log/groots/gmetrics/gmetrics_agent_setup.sh.log
 
 $ cat /var/log/groots/gmetrics/gmetrics_agent_setup.sh.log
   
-# Testing gmetrics  remote agent.
+# Testing gmetrics remote agent.
 
 * Locally test, 
 
