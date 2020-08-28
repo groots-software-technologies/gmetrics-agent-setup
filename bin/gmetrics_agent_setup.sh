@@ -64,7 +64,6 @@ REMOTEPACKAGE_UBUNTU="gmetrics-remote-deb-v4.3.2.2020.tar.gz"
 GRPEPATH="/root/gmetricsdata/gmetrics-agent-setup/"
 CURRENTPATH=`pwd`
 
-
 # Gmetrics remote user addition.
 #######################################################
 
@@ -166,8 +165,7 @@ gmetrics_remote_centos7_plugins () {
 
 echo "#######################################################" | log
 echo "Downloading gmetrics-remote plugin on the system." | log
-cp -avp $GRPEPATH/$REMOTEPACKAGE_RHEL_CENTOS $PLUGINSDIR/
-
+cp -avp $GRPEPATH/$REMOTEPACKAGE_RHEL_CENTOS $PLUGINSDIR/ | log
 echo "Gmetrics remote plugin is successfully downloaded under \"$PLUGINSDIR\"" | log
 echo "Verify downloaded gmetrics-remote plugin." | log
 echo "#######################################################" | log
@@ -202,7 +200,7 @@ gmetrics_remote_ubuntu_plugins () {
 
 echo "#######################################################" | log
 echo "Downloading gmetrics-remote plugin on the system." | log
-cp -avp $GRPEPATH/$REMOTEPACKAGE_UBUNTU $PLUGINSDIR/
+cp -avp $GRPEPATH/$REMOTEPACKAGE_UBUNTU $PLUGINSDIR/ | log
 echo "Gmetrics remote plugin is successfully downloaded under \"$PLUGINSDIR\"" | log
 echo "Verify downloaded gmetrics-remote plugin." | log
 echo "#######################################################" | log
@@ -555,7 +553,7 @@ echo "
 NOTE : If gmetrics-remote service does not started then check installation log file [$LOGFILE]
        And gmetrics-remote service log file [/groots/monitoring/var/gmetrics-remote.log]
        Or your system log file.
-"
+" | log
 
 # End Main Logic.
 #######################################################
