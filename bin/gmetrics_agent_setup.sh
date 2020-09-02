@@ -64,19 +64,49 @@ REMOTEPACKAGE_UBUNTU="gmetrics-remote-deb-v4.3.2.2020.tar.gz"
 GRPEPATH="/root/gmetricsdata/gmetrics-agent-setup/"
 CURRENTPATH=`pwd`
 
+# Finding installed operating system details.
+#######################################################
+
+gmetrics_remote_os_details () {
+
+echo "#######################################################" | log
+echo "Finding installed operating system details" | log
+OSNAME=$(cat /etc/*release | grep "PRETTY_NAME" | sed 's/PRETTY_NAME=//g' | sed 's/["]//g' | awk '{print $1}')
+echo "Installed operating system : $OSNAME" | log
+OS_VERSION=$(cat /etc/*release | grep "VERSION_ID" | sed 's/VERSION_ID=//g' |sed 's/["]//g' | awk '{print $1}' | cut -d. -f1)
+echo "OS Version is : $OS_VERSION" | log
+}
 
 # Gmetrics remote user addition.
 #######################################################
 
 gmetrics_remote_user_addition () {
+id groots
+RET=`echo $?`
+if [ $RET != 0 ]
+then
+	echo "#######################################################" | log
+	echo "Gmetrics remote user adding and ownership updating." | log
+	echo "useradd groots" | log
+	useradd groots
+else
+	echo "#######################################################" | log
+	echo "Gmetrics remote user is present, please remove user and home directory."
+	exit 3
+fi
+
+}
+
+# Gmetrics remote plugin directory creation.
+#######################################################
+
+gmetrics_remote_plugin_directory_addition () {
 
 echo "#######################################################" | log
-echo "Gmetrics remote user adding and ownership updating." | log
-echo "useradd groots" | log
-useradd groots
-echo "chown -R groots. /groots/monitoring" | log
-chown -R groots. /groots/monitoring
-
+echo "Gmetrics plugin directory creating." | log
+PLUGINSDIR="/groots/tmp/"
+mkdir -p $PLUGINSDIR
+echo "Gmetrics plugin \"$PLUGINSDIR\" directory successfully created" | log
 }
 
 # Verify /groots directory ownership permission
@@ -92,32 +122,19 @@ GROUPOWNERSHIP=$(ls -ld /groots | awk '{print $4}')
 
 if [ "$DIRPERMISSION" = "755" ] && [ "$USEROWNERSHIP" = "root" ] && [ "$GROUPOWNERSHIP" = "root" ] 
 then
-echo "########################################################" | log
-echo "Permission verified for /groots directory
-Directory permission for "/groots/" is set - $DIRPERMISSION
-Directory userownership for  "/groots/" is set - $USEROWNERSHIP
-Directory groupownership for  "/groots/" is set - $GROUPOWNERSHIP " | log 
+	echo "########################################################" | log
+	echo "Permission verified for /groots directory
+	      Directory permission for "/groots/" is set - $DIRPERMISSION
+	      Directory userownership for  "/groots/" is set - $USEROWNERSHIP
+	      Directory groupownership for  "/groots/" is set - $GROUPOWNERSHIP " | log 
 else
-echo "########################################################" | log
-echo "Permission verification failed for /groots direcrtory" | log 
-echo "Directory permission for "/groots" is set - $DIRPERMISSION
-Directory ownsership for "/groots" is set - $USEROWNERSHIP
-Directory groupownership for  "/groots" is set - $GROUPOWNERSHIP" | log 
-exit 3
+	echo "########################################################" | log
+	echo "Permission verification failed for /groots direcrtory" | log 
+	echo "Directory permission for "/groots" is set - $DIRPERMISSION
+	      Directory ownsership for "/groots" is set - $USEROWNERSHIP
+	      Directory groupownership for  "/groots" is set - $GROUPOWNERSHIP" | log 
+	exit 3
 fi
-}
-
-
-# Gmetrics remote plugin directory creation.
-#######################################################
-
-gmetrics_remote_plugin_directory_addition () {
-
-echo "#######################################################" | log
-echo "Gmetrics plugin directory creating." | log
-PLUGINSDIR="/groots/tmp/"
-mkdir -p $PLUGINSDIR
-echo "Gmetrics plugin \"$PLUGINSDIR\" directory successfully created" | log
 }
 
 # Get ip address from system.
@@ -129,19 +146,6 @@ echo "#######################################################" | log
 echo "IP address gathering from system" | log
 IPADDRESS="$(hostname -I | awk '{print $1}')"
 echo "System IP address is : $IPADDRESS" | log
-}
-
-# Finding installed operating system details.
-#######################################################
-
-gmetrics_remote_os_details () {
-
-echo "#######################################################" | log
-echo "Finding installed operating system details" | log
-OSNAME=$(cat /etc/*release | grep "PRETTY_NAME" | sed 's/PRETTY_NAME=//g' | sed 's/["]//g' | awk '{print $1}')
-echo "Installed operating system : $OSNAME" | log
-OS_VERSION=$(cat /etc/*release | grep "VERSION_ID" | sed 's/VERSION_ID=//g' |sed 's/["]//g' | awk '{print $1}' | cut -d. -f1)
-echo "OS Version is : $OS_VERSION" | log
 }
 
 # Changing permissions of file /bin/ping and /bin/ping6
@@ -166,8 +170,7 @@ gmetrics_remote_centos7_plugins () {
 
 echo "#######################################################" | log
 echo "Downloading gmetrics-remote plugin on the system." | log
-cp -avp $GRPEPATH/$REMOTEPACKAGE_RHEL_CENTOS $PLUGINSDIR/
-
+cp -avp $GRPEPATH/$REMOTEPACKAGE_RHEL_CENTOS $PLUGINSDIR/ | log
 echo "Gmetrics remote plugin is successfully downloaded under \"$PLUGINSDIR\"" | log
 echo "Verify downloaded gmetrics-remote plugin." | log
 echo "#######################################################" | log
@@ -202,7 +205,7 @@ gmetrics_remote_ubuntu_plugins () {
 
 echo "#######################################################" | log
 echo "Downloading gmetrics-remote plugin on the system." | log
-cp -avp $GRPEPATH/$REMOTEPACKAGE_UBUNTU $PLUGINSDIR/
+cp -avp $GRPEPATH/$REMOTEPACKAGE_UBUNTU $PLUGINSDIR/ | log
 echo "Gmetrics remote plugin is successfully downloaded under \"$PLUGINSDIR\"" | log
 echo "Verify downloaded gmetrics-remote plugin." | log
 echo "#######################################################" | log
@@ -404,7 +407,7 @@ gmetrics_remote_service_start () {
 
 echo "#######################################################" | log
 echo "Starting gmetrics-remote service." | log
-sudo systemctl daemon-reload;
+sudo systemctl daemon-reload | log
 sudo systemctl enable gmetrics-remote | log
 sudo systemctl start gmetrics-remote | log
 sudo systemctl status gmetrics-remote | log
@@ -457,12 +460,12 @@ if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ]; then
 
         # Gmetrics remote user addition.
         gmetrics_remote_user_addition
-	
-	# Verify permission for /groots directory
-	verify_groots_dir_permission
 
         # Gmetrics remote plugin directory creation.
         gmetrics_remote_plugin_directory_addition
+	
+	# Verify permission for /groots directory
+	verify_groots_dir_permission
 
         # Get ip address from system.
         gmetrics_remote_getipaddress
@@ -509,11 +512,11 @@ elif [ "$OSNAME" = "Ubuntu" ]; then
         # Gmetrics remote user addition.
         gmetrics_remote_user_addition
 
+        # Gmetrics remote plugin directory creation.
+        gmetrics_remote_plugin_directory_addition
+
         # Verify permission for /groots directory
 	verify_groots_dir_permission
-
-	# Gmetrics remote plugin directory creation.
-        gmetrics_remote_plugin_directory_addition
 
         # Get ip address from system.
         gmetrics_remote_getipaddress
@@ -555,7 +558,7 @@ echo "
 NOTE : If gmetrics-remote service does not started then check installation log file [$LOGFILE]
        And gmetrics-remote service log file [/groots/monitoring/var/gmetrics-remote.log]
        Or your system log file.
-"
+" | log
 
 # End Main Logic.
 #######################################################
