@@ -104,9 +104,11 @@ if [ $OSNAME = "Ubuntu" ]; then
     apt list subversion  2> /dev/null
 
     if [ $? -eq 0 ]; then
-        echo "Svn is installed!" | log 
+        echo "########################################################"
+		echo "Svn is installed!" | log 
     else
         echo "Svn is not installed! Exiting now.." | log 
+		echo "########################################################"
         echo "To install svn - apt install subversion -y " | log 
         exit 3;
     fi
