@@ -59,6 +59,7 @@ $ cat /groots/monitoring/var/gmetrics-remote.log
 - Verify gmetrics agent service status
 
 $ systemctl enable gmetrics-remote
+
 $ systemctl status gmetrics-remote
 
 - Test port connectivity from Locally
