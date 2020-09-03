@@ -47,7 +47,7 @@ $ cd /root/gmetricsdata/gmetrics-agent-setup
 
 $ sudo sh /root/gmetricsdata/gmetrics-agent-setup/bin/gmetrics_agent_setup.sh
 
-- Confirm gmetrics-agent service, & if it is not autostart check installation log.
+- Confirm gmetrics-agent service, & if it will not auto-start, check installation log.
   
 $ cat /var/log/groots/gmetrics/gmetrics_agent_setup.sh.log
   
@@ -61,20 +61,19 @@ $ cat /groots/monitoring/var/gmetrics-remote.log
 $ systemctl enable gmetrics-remote
 $ systemctl status gmetrics-remote
 
-- Test port connectivity
-- From Locally
+- Test port connectivity from Locally
 
 $ telnet localhost 5666
 
 $ telnet <REMOTE AGENT PRIVATE IP/HOSTNAME> 5666
 
-- From Gmetrics-Core cloud server
+- Test port connectivity from Gmetrics-Core cloud server
 
 $ telnet <REMOTE AGENT IP/HOSTNAME> 5666
  
 # NOTE
 - Once all installation is done then cleanup data from "/root/gmetricsdata/" directory.
-       
+      
 $ rm -rf /root/gmetricsdata/*
 
 $ ls -ltrh /root/gmetricsdata/
