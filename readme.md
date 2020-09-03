@@ -71,7 +71,19 @@ $ telnet <REMOTE AGENT PRIVATE IP/HOSTNAME> 5666
 - Test port connectivity from Gmetrics-Core cloud server
 
 $ telnet <REMOTE AGENT IP/HOSTNAME> 5666
- 
+
+## Error
+If you get following error after agent installation, perform the below task.
+
+ERROR - 
+"Is there a typo in the command or service configuration?: sudo: sorry, you must have a tty to run sudo"
+
+Execute following command and check the result.
+
+$ cp -av /etc/sudoers /etc/sudoers_<DATE>
+
+$ sed -i -e 's/Defaults    requiretty.*/#Defaults    requiretty/g' /etc/sudoers
+
 ## NOTE
 - Once all installation is done then cleanup data from "/root/gmetricsdata/" directory.
       
