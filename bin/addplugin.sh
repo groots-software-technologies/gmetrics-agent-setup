@@ -85,7 +85,7 @@ echo "Verifying if Subversion is present or not.." | log
 
 if [ $OSNAME = "CentOS" ]; then
 
-    rpm -qa | grep subversion &> /dev/null
+    svn --version &>/dev/null
 
     if [ $? -eq 0 ]; then
     	echo "#######################################################"
@@ -101,7 +101,7 @@ fi
 
 if [ $OSNAME = "Ubuntu" ]; then
 
-    apt list subversion  2> /dev/null
+    svn --version &>/dev/null
 
     if [ $? -eq 0 ]; then
         echo "########################################################"
@@ -124,7 +124,7 @@ read USERNAME
 
 echo "#######################################################"
 echo "Enter git Password:" | log 
-read -s PASSWORD
+read  PASSWORD
 
 # Destination path
 #######################################################
