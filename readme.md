@@ -1,9 +1,8 @@
-Gmetrics-Agent Installation
 
-# Summary
+## Summary
 By using this agent installation script, you will install the gmetrics-agent. Through this agent perf data will sync with gmetrics-core
 
-# Gmetrics-agent script flow - 
+## Gmetrics-agent script flow - 
 - Check OS background & start installation
 - Add gmetrics-agent system user
 - Create gmetrics agent directory strcture
@@ -17,10 +16,10 @@ By using this agent installation script, you will install the gmetrics-agent. Th
 - Enable & start gmetrics-agent service
 - Test gmetrics-agent connectivity
 
-# Install at Linux Platform -
+## Install at Linux Platform -
 OS type - RHEL7/CENTOS7, UBUNTU, Amazon Linux
 
-# Download 
+## Download 
 - Download gmetircs-agent package on remote server. Confirm git package present on your remote system or not. If git package is not present then install it.
 
 $ git --version 
@@ -42,7 +41,7 @@ Installation of packages are commented, as the necessary packages can be install
  
 $ cd /root/gmetricsdata/gmetrics-agent-setup
  
-# Installation
+## Installation
 - Install gmetrics-agent & execute below script by using root system user.
 
 $ sudo sh /root/gmetricsdata/gmetrics-agent-setup/bin/gmetrics_agent_setup.sh
@@ -55,7 +54,7 @@ $ cat /var/log/groots/gmetrics/gmetrics_agent_setup.sh.log
 
 $ cat /groots/monitoring/var/gmetrics-remote.log
   
-# Testing
+## Testing
 - Verify gmetrics agent service status
 
 $ systemctl enable gmetrics-remote
@@ -71,7 +70,7 @@ $ telnet <REMOTE AGENT PRIVATE IP/HOSTNAME> 5666
 
 $ telnet <REMOTE AGENT IP/HOSTNAME> 5666
  
-# NOTE
+## NOTE
 - Once all installation is done then cleanup data from "/root/gmetricsdata/" directory.
       
 $ rm -rf /root/gmetricsdata/*
