@@ -85,15 +85,15 @@ echo "Verifying if Subversion is present or not.." | log
 
 if [ $OSNAME = "CentOS" ]; then
 
-    svn --version >/dev/null
+    svn --version > /dev/null 2>&1
 
     if [ $? -eq 0 ]; then
-    	echo "#######################################################"
-	    echo "Svn is installed!" | log 
+    	echo "#######################################################" | log 
+	echo "Svn is installed!" | log 
     else
         echo "Svn is not installed! Exiting now.." | log 
         echo "#######################################################"
-        echo "To install svn - yum install subversion -y " | log 
+        echo "To install svn: yum install subversion -y " | log 
         exit 3;
     fi
 fi
@@ -101,15 +101,15 @@ fi
 
 if [ $OSNAME = "Ubuntu" ]; then
 
-    svn --version >/dev/null
+    svn --version > /dev/null 2>&1
 
     if [ $? -eq 0 ]; then
-        echo "########################################################"
+        echo "########################################################" | log 
 	echo "Svn is installed!" | log 
     else
         echo "Svn is not installed! Exiting now.." | log 
-	echo "########################################################"
-        echo "To install svn - apt install subversion -y " | log 
+	echo "########################################################" | log 
+        echo "To install svn: apt install subversion  " | log 
         exit 3;
     fi
 fi
@@ -118,11 +118,11 @@ fi
 # collecting git Username and Password
 #######################################################
 
-echo "#######################################################"
+echo "#######################################################" | log 
 echo "Enter git username:" | log 
 read USERNAME
 
-echo "#######################################################"
+echo "#######################################################" | log 
 echo "Enter git Password:" | log 
 read  PASSWORD
 
