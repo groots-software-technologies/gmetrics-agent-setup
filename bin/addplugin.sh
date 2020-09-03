@@ -85,7 +85,7 @@ echo "Verifying if Subversion is present or not.." | log
 
 if [ $OSNAME = "CentOS" ]; then
 
-    svn --version &>/dev/null
+    svn --version >/dev/null
 
     if [ $? -eq 0 ]; then
     	echo "#######################################################"
@@ -101,7 +101,7 @@ fi
 
 if [ $OSNAME = "Ubuntu" ]; then
 
-    svn --version &>/dev/null
+    svn --version >/dev/null
 
     if [ $? -eq 0 ]; then
         echo "########################################################"
