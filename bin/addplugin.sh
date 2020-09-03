@@ -124,7 +124,7 @@ read USERNAME
 
 echo "#######################################################" | log 
 echo "Enter git Password:" | log 
-read  PASSWORD
+read -s PASSWORD
 
 # Destination path
 #######################################################
