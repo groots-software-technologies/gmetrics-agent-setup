@@ -25,14 +25,14 @@ cp /root/gmetrics-agent-setup/bin/addplugin.sh /groots/monitoring/bin/
 
 $ sh addplugin.sh --help
 
-$ sh addpluigin.sh -p [plugin name]
+$ sh addplugin.sh -p [plugin name]
 
 You will get the plugin list & decide which you have to monitor.
 
 # Plugin addition
 
 - Add plugin
-$ sh addpluigin.sh -p [plugin name]
+$ sh addplugin.sh -p [plugin name]
 
 Ex - sh addpluigin.sh -p aws
 
