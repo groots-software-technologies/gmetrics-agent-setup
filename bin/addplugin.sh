@@ -226,11 +226,6 @@ elif [ "$PLUGINNAME" = "website" ] || [ "$PLUGINNAME" = "Website" ] || [ "$PLUGI
     rm -rf $DEST/.svn
     echo "$PLUGINNAME plugin successfully added. " | log 
 
-elif [ "$PLUGINNAME" = "zimbra" ] || [ "$PLUGINNAME" = "Zimbra" ] || [ "$PLUGINNAME" = "ZIMBRA" ]; then
-    echo "Plugin "zimbra" selected to add in "$DEST" " | log
-    svn checkout https://github.com/grootsadmin/gmetrics-plugins/trunk/os/linux/zimbra --non-interactive --no-auth-cache --username $USERNAME --password "$PASSWORD" $DEST
-    rm -rf $DEST/.svn
-    echo "$PLUGINNAME plugin successfully added. " | log
 
 else
     echo "#######################################################"
