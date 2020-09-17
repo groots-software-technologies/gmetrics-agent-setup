@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #######################################################
 # Program: To add Plugins on remote side
 #
@@ -50,7 +50,7 @@ if [ "${1}" = "--help" -o "${#}" != "2" ];
 then
 
 echo -e "
-	Plugin list: sms, appsensors, aws, backup, dns, docker, expiry, hardware, lamp, mithi, os, website, jvm
+	Plugin list: sms, appsensors, aws, backup, dns, docker, expiry, hardware, lamp, mithi, os, website, jvm, node
 
 	OPTION                 DESCRIPTION
 	-----------------------------------------
@@ -59,9 +59,7 @@ echo -e "
 	-----------------------------------------
 
 	Usage: sh $SCRIPTNAME  -p [plugin name]
-	Ex: sh addplugin.sh -p aws
-
- ";
+	Ex: sh addplugin.sh -p aws";
     exit 3;
 fi
 
@@ -231,6 +229,11 @@ elif [ "$PLUGINNAME" = "website" ] || [ "$PLUGINNAME" = "Website" ] || [ "$PLUGI
 	rm -rf $DEST/.svn
     echo "$PLUGINNAME plugin successfully added. " | log 
 
+elif [ "$PLUGINNAME" = "node" ] || [ "$PLUGINNAME" = "Node" ] || [ "$PLUGINNAME" = "NODE" ]; then
+    echo "Plugin "node" selected to add in "$DEST" " | log
+    $GITPATH/node $SVNCMD
+    rm -rf $DEST/.svn
+    echo "$PLUGINNAME plugin successfully added. " | log
 
 else
     echo "#######################################################"
