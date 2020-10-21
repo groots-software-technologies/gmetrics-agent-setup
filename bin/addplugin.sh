@@ -50,7 +50,7 @@ if [ "${1}" = "--help" -o "${#}" != "2" ];
 then
 
 echo -e "
-	Plugin list: sms, appsensors, aws, backup, dns, docker, expiry, hardware, lamp, mithi, os, website, jvm, node
+	Plugin list: sms, appsensors, aws, backup, dns, docker, expiry, hardware, lamp, mithi, os, website, jvm, node, jenkins
 
 	OPTION                 DESCRIPTION
 	-----------------------------------------
@@ -232,6 +232,12 @@ elif [ "$PLUGINNAME" = "website" ] || [ "$PLUGINNAME" = "Website" ] || [ "$PLUGI
 elif [ "$PLUGINNAME" = "node" ] || [ "$PLUGINNAME" = "Node" ] || [ "$PLUGINNAME" = "NODE" ]; then
     echo "Plugin "node" selected to add in "$DEST" " | log
     $GITPATH/node $SVNCMD
+    rm -rf $DEST/.svn
+    echo "$PLUGINNAME plugin successfully added. " | log
+
+elif [ "$PLUGINNAME" = "jenkins" ] || [ "$PLUGINNAME" = "Jenkins" ] || [ "$PLUGINNAME" = "JENKINS" ]; then
+    echo "Plugin "jenkins" selected to add in "$DEST" " | log
+    $GITPATH/jenkins $SVNCMD
     rm -rf $DEST/.svn
     echo "$PLUGINNAME plugin successfully added. " | log
 
