@@ -50,7 +50,7 @@ if [ "${1}" = "--help" -o "${#}" != "2" ];
 then
 
 <<<<<<< HEAD
-echo -e "Plugin list: sms, appsensors, aws, backup, dns, docker, expiry, hardware, lamp, mithi, os, website, jvm
+echo -e "Plugin list: sms, appsensors, aws, backup, dns, docker, expiry, hardware, lamp, mithi, os, website, jvm, node, jenkins
 
 OPTION                 DESCRIPTION
 -----------------------------------------

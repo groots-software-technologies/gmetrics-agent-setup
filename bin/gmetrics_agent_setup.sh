@@ -192,10 +192,10 @@ echo "#######################################################" | log
 echo "Gmetrics plugin successfully extracted." | log
 echo "#######################################################" | log
 echo "Updating ownership of gmetrics-remote config directory"   | log
-chown -R groots. /groots/monitoring  | log
+chown -R groots. /groots/metrics/  | log
 echo "Verify gmetrics-remote plugin config directory ownership." | log
 echo "#######################################################" | log
-ls -ltrh /groots/monitoring/ | log
+ls -ltrh /groots/metrics/ | log
 }
 
 # Ubuntu gmetrics-remote plugin download
@@ -227,10 +227,10 @@ echo "#######################################################" | log
 echo "Gmetrics plugin successfully extracted." | log
 echo "#######################################################" | log
 echo "Updating ownership of gmetrics-remote config directory"   | log
-chown -R groots. /groots/monitoring  | log
+chown -R groots. /groots/metrics/  | log
 echo "Verify gmetrics-remote plugin config directory ownership." | log
 echo "#######################################################" | log
-ls -ltrh /groots/monitoring/ | log
+ls -ltrh /groots/metrics/ | log
 }
 
 # Gmetrics remote port entry add in /etc/services file.
@@ -270,9 +270,9 @@ gmetrics_remote_assign_ipaddress () {
 
 echo "#######################################################" | log
 echo "Adding gmetrics-remote server lan ip address in config file."   | log
-cp -avp /groots/monitoring/config/gmetrics-remote.cfg /groots/monitoring/config/gmetrics-remote.cfg_$(date +"%d-%m-%YT%H-%M-%S") | log
-sudo sh -c "sed -i '/^allowed_hosts=/s/$/,${IPADDRESS}/' /groots/monitoring/config/gmetrics-remote.cfg"
-cat /groots/monitoring/config/gmetrics-remote.cfg | egrep "allowed_hosts" | log
+cp -avp /groots/metrics/config/gmetrics-remote.cfg /groots/metrics/config/gmetrics-remote.cfg_$(date +"%d-%m-%YT%H-%M-%S") | log
+sudo sh -c "sed -i '/^allowed_hosts=/s/$/,${IPADDRESS}/' /groots/metrics/config/gmetrics-remote.cfg"
+cat /groots/metrics/config/gmetrics-remote.cfg | egrep "allowed_hosts" | log
 echo "Remote server LAN IP successfully added in gmetrics-remote config file." | log
 }
 
@@ -408,9 +408,9 @@ gmetrics_remote_service_start () {
 echo "#######################################################" | log
 echo "Starting gmetrics-remote service." | log
 sudo systemctl daemon-reload | log
-sudo systemctl enable gmetrics-remote | log
-sudo systemctl start gmetrics-remote | log
-sudo systemctl status gmetrics-remote | log
+sudo systemctl enable gmetrics-agent | log
+sudo systemctl start gmetrics-agent | log
+sudo systemctl status gmetrics-agent | log
 }
 
 # Verify gmetrics-remote service status.
@@ -423,12 +423,12 @@ echo "Verifying gmetrics-remote service port status." | log
 sudo netstat -pntl | egrep 5666 | log
 echo "#######################################################" | log
 echo "Check gmetrics-remote installed version." | log
-echo 'sudo /groots/monitoring/libexec/check_metrics -H 127.0.0.1' | log
-sudo /groots/monitoring/libexec/check_metrics -H 127.0.0.1 | log
+echo 'sudo /groots/metrics/libexec/check_metrics -H 127.0.0.1' | log
+sudo /groots/metrics/libexec/check_metrics -H 127.0.0.1 | log
 echo "#######################################################" | log
 echo "Check gmetrics-remote command with arguments." | log
-echo "sudo /groots/monitoring/libexec/check_metrics -H $IPADDRESS -c check_users -a '-w 5 -c 8'" | log
-sudo /groots/monitoring/libexec/check_metrics -H $IPADDRESS -c check_users -a "-w 5 -c 8" | log
+echo "sudo /groots/metrics/libexec/check_metrics -H $IPADDRESS -c check_users -a '-w 5 -c 8'" | log
+sudo /groots/metrics/libexec/check_metrics -H $IPADDRESS -c check_users -a "-w 5 -c 8" | log
 echo "#######################################################" | log
 echo "Gmetrics remote service is successfully started." | log
 }
@@ -556,7 +556,7 @@ echo "Gmetrics Installation is completed at [`date`]." | log
 
 echo "
 NOTE : If gmetrics-remote service does not started then check installation log file [$LOGFILE]
-       And gmetrics-remote service log file [/groots/monitoring/var/gmetrics-remote.log]
+       And gmetrics-remote service log file [/groots/metrics/var/gmetrics-remote.log]
        Or your system log file.
 " | log
 
