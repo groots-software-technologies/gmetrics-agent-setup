@@ -3,7 +3,7 @@
 # Program: To add Plugins on remote side
 #
 # Purpose:
-#  This script adds Plugins to remote host directory /groots/monitoring/libexec
+#  This script adds Plugins to remote host directory /groots/metrics/libexec
 #  can be run in interactive.
 #
 # License:
@@ -146,9 +146,9 @@ read -s PASSWORD
 # Destination path
 #######################################################
 
-DEST="/groots/monitoring/libexec/"
+DEST="/groots/metrics/libexec/"
 
-# Svn command to Download plugin folder from git to /groots/monitoring/libexec
+# Svn command to Download plugin folder from git to /groots/metrics/libexec
 #######################################################
 
 SVNCMD="--non-interactive --no-auth-cache --username $USERNAME --password "$PASSWORD" $DEST"
