@@ -406,7 +406,7 @@ esac
 gmetrics_remote_service_start () {
 
 echo "#######################################################" | log
-echo "Starting gmetrics-remote service." | log
+echo "Starting gmetrics-agent service." | log
 sudo systemctl daemon-reload | log
 sudo systemctl enable gmetrics-agent | log
 sudo systemctl start gmetrics-agent | log
@@ -485,7 +485,7 @@ if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ]; then
         # Gmetrics remote user entry add in Sudoers File.
         gmetrics_remote_sudoers_entry
 
-        # Adding remote server LAN IP in gmetrics-remote config file.
+        # Adding remote server LAN IP in gmetrics-agent config file.
         gmetrics_remote_assign_ipaddress
 
         # Adding gmetrics-remote port in firewall.
@@ -536,7 +536,7 @@ elif [ "$OSNAME" = "Ubuntu" ]; then
         # Gmetrics remote user entry add in Sudoers File.
         gmetrics_remote_sudoers_entry
 
-        # Adding remote server LAN IP in gmetrics-remote config file.
+        # Adding remote server LAN IP in gmetrics-agent config file.
         gmetrics_remote_assign_ipaddress
 
         # Adding gmetrics-remote port in firewall.
@@ -556,7 +556,7 @@ echo "Gmetrics Installation is completed at [`date`]." | log
 
 echo "
 NOTE : If gmetrics-remote service does not started then check installation log file [$LOGFILE]
-       And gmetrics-remote service log file [/groots/metrics/var/gmetrics-remote.log]
+       And gmetrics-remote service log file [/groots/metrics/var/gmetrics-agent.log]
        Or your system log file.
 " | log
 
