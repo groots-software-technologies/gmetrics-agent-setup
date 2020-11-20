@@ -270,10 +270,10 @@ gmetrics_remote_assign_ipaddress () {
 
 echo "#######################################################" | log
 echo "Adding gmetrics-remote server lan ip address in config file."   | log
-cp -avp /groots/metrics/config/gmetrics-remote.cfg /groots/metrics/config/gmetrics-remote.cfg_$(date +"%d-%m-%YT%H-%M-%S") | log
-sudo sh -c "sed -i '/^allowed_hosts=/s/$/,${IPADDRESS}/' /groots/metrics/config/gmetrics-remote.cfg"
-cat /groots/metrics/config/gmetrics-remote.cfg | egrep "allowed_hosts" | log
-echo "Remote server LAN IP successfully added in gmetrics-remote config file." | log
+cp -avp /groots/metrics/config/gmetrics-agent.cfg /groots/metrics/config/gmetrics-agent.cfg_$(date +"%d-%m-%YT%H-%M-%S") | log
+sudo sh -c "sed -i '/^allowed_hosts=/s/$/,${IPADDRESS}/' /groots/metrics/config/gmetrics-agent.cfg"
+cat /groots/metrics/config/gmetrics-agent.cfg | egrep "allowed_hosts" | log
+echo "Remote server LAN IP successfully added in gmetrics-agent config file." | log
 }
 
 # Adding gmetrics-remote port in firewall.
