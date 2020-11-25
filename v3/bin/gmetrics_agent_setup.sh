@@ -1,9 +1,9 @@
 #!/bin/sh
 #######################################################
-# Program: Gmetrics remote side plugin installation.
+# Program: Gmetrics Agent plugin installation.
 #
 # Purpose:
-#  This script installing gmetrics-remote plugin on the remote system,
+#  This script installing gmetrics-agent plugin on the remote system,
 #  can be run in interactive.
 #
 # License:
