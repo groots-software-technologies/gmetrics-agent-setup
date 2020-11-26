@@ -172,6 +172,30 @@ chmod u+s /bin/ping6 | log
 }
 
 
+# Verify log path permission
+######################################################
+
+verify_log_path_permission () {
+
+echo "#######################################################" | log
+echo "Verifying Permission and ownership of "/var/log/groots/metrics" directory " | log
+
+LOGUSEROWNERSHIP=$(ls -ld /var/log/groots/metrics | awk '{print $3}')
+LOGGROUPOWNERSHIP=$(ls -ld /var/log/groots/metrics | awk '{print $4}')
+
+if  [ "$LOGUSEROWNERSHIP" = "groots" ] && [ "$LOGGROUPOWNERSHIP" = "groots" ]
+then
+        echo "########################################################" | log
+        echo "Permission verified for /var/log/groots/metrics directory is groots" | log
+else
+        chown -R groots. /var/log/groots/metrics/
+        echo "########################################################" | log
+        echo "Ownership for /var/log/groots/metrics/ is changed to groots" | log
+fi
+
+}
+
+
 # Extracting gmetrics-remote tar file.
 #######################################################
 
@@ -450,6 +474,9 @@ if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ]; then
         # Get ip address from system.
         gmetrics_agent_getipaddress
 
+	# Verify agent service log path
+	verify_log_path_permission
+
         # Changing permissions of file /bin/ping and /bin/ping6
         gmetrics_agent_change_ping_permission
 
@@ -497,6 +524,9 @@ elif [ "$OSNAME" = "Ubuntu" ]; then
 
         # Get ip address from system.
         gmetrics_agent_getipaddress
+
+	# Verify agent service log path 
+	verify_log_path_permission
 
         # Changing permissions of file /bin/ping and /bin/ping6
         gmetrics_agent_change_ping_permission
