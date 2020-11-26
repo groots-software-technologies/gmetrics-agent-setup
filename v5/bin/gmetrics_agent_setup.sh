@@ -1,9 +1,9 @@
 #!/bin/sh
 #######################################################
-# Program: Gmetrics remote side plugin installation.
+# Program: Gmetrics Agent installation.
 #
 # Purpose:
-#  This script installing gmetrics-remote plugin on the remote system,
+#  This script installing gmetrics-agent on the remote system,
 #  can be run in interactive.
 #
 # License:
@@ -59,10 +59,9 @@ fi
 
 # Main Logic.
 #######################################################
+
 REMOTEPACKAGE_RHEL_CENTOS="gmetrics-agent-el7-V5.25.11.2020tar.gz"
-REMOTEPACKAGE_UBUNTU="gmetrics-agent-deb-V5.25.11.2020tar.gz"
-GRPEPATH="/root/gmetricsdata/gmetrics-agent-setup/v5/"
-CURRENTPATH=`pwd`
+REMOTEPACKAGE_UBUNTU="gmetrics-agent-deb-V5.26.11.2020tar.gz"
 
 # Finding installed operating system details.
 #######################################################
@@ -85,14 +84,14 @@ id groots
 RET=`echo $?`
 if [ $RET != 0 ]
 then
-	echo "#######################################################" | log
-	echo "Gmetrics remote user adding and ownership updating." | log
-	echo "useradd groots" | log
-	useradd groots
+        echo "#######################################################" | log
+        echo "Gmetrics remote user adding and ownership updating." | log
+        echo "useradd groots" | log
+        useradd groots
 else
-	echo "#######################################################" | log
-	echo "Gmetrics remote user is present, please remove user and home directory."
-	exit 3
+        echo "#######################################################" | log
+        echo "Gmetrics remote user is present, please remove user and home directory."
+        exit 3
 fi
 
 }
@@ -107,6 +106,15 @@ echo "Gmetrics plugin directory creating." | log
 PLUGINSDIR="/groots/tmp/"
 mkdir -p $PLUGINSDIR
 echo "Gmetrics plugin \"$PLUGINSDIR\" directory successfully created" | log
+
+echo "#######################################################" | log
+echo "Downloading Agent builds under $PLUGINSDIR directory" | log
+
+URL="https://github.com/grootsadmin/gmetrics-agent-setup/branches/alpha/v5/builds"
+svn checkout $URL $PLUGINSDIR | log
+echo "#######################################################" | log
+echo "Downloading builds under $PLUGINSDIR directory completed!!!" | log
+
 }
 
 # Verify /groots directory ownership permission
@@ -115,25 +123,25 @@ echo "Gmetrics plugin \"$PLUGINSDIR\" directory successfully created" | log
 verify_groots_dir_permission () {
 
 echo "#######################################################" | log
-echo "Verifying Permission and ownership of "/groots" directory " | log 
+echo "Verifying Permission and ownership of "/groots" directory " | log
 DIRPERMISSION=$(stat -c '%a' /groots)
 USEROWNERSHIP=$(ls -ld /groots | awk '{print $3}')
 GROUPOWNERSHIP=$(ls -ld /groots | awk '{print $4}')
 
-if [ "$DIRPERMISSION" = "755" ] && [ "$USEROWNERSHIP" = "root" ] && [ "$GROUPOWNERSHIP" = "root" ] 
+if [ "$DIRPERMISSION" = "755" ] && [ "$USEROWNERSHIP" = "root" ] && [ "$GROUPOWNERSHIP" = "root" ]
 then
-	echo "########################################################" | log
-	echo "Permission verified for /groots directory
-	      Directory permission for "/groots/" is set - $DIRPERMISSION
-	      Directory userownership for  "/groots/" is set - $USEROWNERSHIP
-	      Directory groupownership for  "/groots/" is set - $GROUPOWNERSHIP " | log 
+        echo "########################################################" | log
+        echo "Permission verified for /groots directory
+              Directory permission for "/groots/" is set - $DIRPERMISSION
+              Directory userownership for  "/groots/" is set - $USEROWNERSHIP
+              Directory groupownership for  "/groots/" is set - $GROUPOWNERSHIP " | log
 else
-	echo "########################################################" | log
-	echo "Permission verification failed for /groots direcrtory" | log 
-	echo "Directory permission for "/groots" is set - $DIRPERMISSION
-	      Directory ownsership for "/groots" is set - $USEROWNERSHIP
-	      Directory groupownership for  "/groots" is set - $GROUPOWNERSHIP" | log 
-	exit 3
+        echo "########################################################" | log
+        echo "Permission verification failed for /groots direcrtory" | log
+        echo "Directory permission for "/groots" is set - $DIRPERMISSION
+              Directory ownsership for "/groots" is set - $USEROWNERSHIP
+              Directory groupownership for  "/groots" is set - $GROUPOWNERSHIP" | log
+        exit 3
 fi
 }
 
@@ -163,20 +171,6 @@ chmod u+s /bin/ping | log
 chmod u+s /bin/ping6 | log
 }
 
-# CentOS-7 gmetrics-remote plugin download.
-#######################################################
-
-gmetrics_agent_centos7_plugins () {
-
-echo "#######################################################" | log
-echo "Downloading gmetrics-remote plugin on the system." | log
-cp -avp $GRPEPATH/$REMOTEPACKAGE_RHEL_CENTOS $PLUGINSDIR/ | log
-echo "Gmetrics remote plugin is successfully downloaded under \"$PLUGINSDIR\"" | log
-echo "Verify downloaded gmetrics-remote plugin." | log
-echo "#######################################################" | log
-ls -ltrh $PLUGINSDIR | log
-
-}
 
 # Extracting gmetrics-remote tar file.
 #######################################################
@@ -184,34 +178,20 @@ ls -ltrh $PLUGINSDIR | log
 gmetrics_agent_centos7_untarzipfile () {
 
 echo "#######################################################" | log
-echo "Gmetrics remote plugin extracting." | log
+echo "Gmetrics agent tarball extracting." | log
 tar -tvf $PLUGINSDIR/$REMOTEPACKAGE_RHEL_CENTOS | log
 echo "#######################################################" | log
 tar -pxvf $PLUGINSDIR/$REMOTEPACKAGE_RHEL_CENTOS -C /  | log
 echo "#######################################################" | log
-echo "Gmetrics plugin successfully extracted." | log
+echo "Gmetrics build successfully extracted." | log
 echo "#######################################################" | log
 echo "Updating ownership of gmetrics-agent config directory"   | log
 chown -R groots. /groots/metrics/  | log
-echo "Verify gmetrics-agent plugin config directory ownership." | log
+echo "Verify gmetrics-agent config directory ownership." | log
 echo "#######################################################" | log
 ls -ltrh /groots/metrics/ | log
 }
 
-# Ubuntu gmetrics-agent plugin download
-#######################################################
-
-gmetrics_agent_ubuntu_plugins () {
-
-echo "#######################################################" | log
-echo "Downloading gmetrics-agent plugin on the system." | log
-cp -avp $GRPEPATH/$REMOTEPACKAGE_UBUNTU $PLUGINSDIR/ | log
-echo "Gmetrics remote agent is successfully downloaded under \"$PLUGINSDIR\"" | log
-echo "Verify downloaded gmetrics-agent plugin." | log
-echo "#######################################################" | log
-ls -ltrh $PLUGINSDIR | log
-
-}
 
 # Extracting gmetrics-agent tar file.
 #######################################################
@@ -219,12 +199,12 @@ ls -ltrh $PLUGINSDIR | log
 gmetrics_agent_ubuntu_untarzipfile () {
 
 echo "#######################################################" | log
-echo "Gmetrics agent plugin extracting." | log
+echo "Gmetrics agent tarball extracting." | log
 tar -tvf  $PLUGINSDIR/$REMOTEPACKAGE_UBUNTU | log
 echo "#######################################################" | log
 tar -pxvf $PLUGINSDIR/$REMOTEPACKAGE_UBUNTU -C / | log
 echo "#######################################################" | log
-echo "Gmetrics plugin successfully extracted." | log
+echo "Gmetrics build successfully extracted." | log
 echo "#######################################################" | log
 echo "Updating ownership of gmetrics-agent config directory"   | log
 chown -R groots. /groots/metrics/  | log
@@ -445,7 +425,7 @@ check_user
 
 # Finding installed operating system details.
 #######################################################
-gmetrics_remote_os_details
+gmetrics_agent_os_details
 
 if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ]; then
         echo "#######################################################" | log
@@ -463,9 +443,9 @@ if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ]; then
 
         # Gmetrics remote plugin directory creation.
         gmetrics_agent_plugin_directory_addition
-	
-	# Verify permission for /groots directory
-	verify_groots_dir_permission
+
+        # Verify permission for /groots directory
+        verify_groots_dir_permission
 
         # Get ip address from system.
         gmetrics_agent_getipaddress
@@ -473,8 +453,6 @@ if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ]; then
         # Changing permissions of file /bin/ping and /bin/ping6
         gmetrics_agent_change_ping_permission
 
-        # CentOS-7 gmetrics-agent plugin download.
-        gmetrics_agent_centos7_plugins
 
         # Extracting gmetrics-agent tar file.
         gmetrics_agent_centos7_untarzipfile
@@ -504,7 +482,6 @@ elif [ "$OSNAME" = "Ubuntu" ]; then
         echo "Gmetrics agent installtion starting at [`date`]." | log
         echo "#######################################################" | log
         echo "Verifying if following packages are present or not." | log
-        sudo echo "automake openssl sysstat autoconf gcc libc6 libmcrypt-dev make libssl-dev wget bc gawk dc build-essential snmp libnet-snmp-perl gettext" | tr ' ' '\n'  | while read line; do apt list --installed | egrep -o $line; done 2> /dev/null
         echo "#######################################################" | log
         echo "Installing gmetrics required packages." | log
         echo "You need to install these os libraries packages on the server : telnet libgd-dev libmcrypt-dev libssl-dev dc snmp libnet-snmp-perl sysstat openssl vim dos2unix git" | log
@@ -516,16 +493,13 @@ elif [ "$OSNAME" = "Ubuntu" ]; then
         gmetrics_agent_plugin_directory_addition
 
         # Verify permission for /groots directory
-	verify_groots_dir_permission
+        verify_groots_dir_permission
 
         # Get ip address from system.
         gmetrics_agent_getipaddress
 
         # Changing permissions of file /bin/ping and /bin/ping6
         gmetrics_agent_change_ping_permission
-
-        # Ubuntu gmetrics-agent plugin download.
-        gmetrics_agent_ubuntu_plugins
 
         # Extracting gmetrics-agent tar file.
         gmetrics_agent_ubuntu_untarzipfile
@@ -551,14 +525,15 @@ elif [ "$OSNAME" = "Ubuntu" ]; then
         echo "#######################################################" | log
 fi
 
-echo "Gmetrics Agent  plugin executor is successfully installed." | log
-echo "Gmetrics Installation is completed at [`date`]." | log
+echo "Gmetrics Agent plugin executor is successfully installed." | log
+echo "Gmetrics Agent Installation is completed at [`date`]." | log
 
 echo "
-NOTE : If gmetrics-agent service does not started then check installation log file [$LOGFILE]
-       And gmetrics-remote service log file [/var/log/groots/metrics/gmetrics-agent.log]
+NOTE : If gmetrics-agent installation does not started then check installation log file [$LOGFILE]
+       And gmetrics-agent service log file [/var/log/groots/metrics/gmetrics-agent.log]
        Or your system log file.
 " | log
 
 # End Main Logic.
 #######################################################
+
