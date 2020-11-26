@@ -9,6 +9,8 @@ By using this agent installation script, you will install the gmetrics-agent. Th
 - Create gmetrics agent directory strcture
 - Pull remote server IP address
 - Change ping file permission
+- Change and verify log file path ownership
+- Download tar files using svn from repo and store in /groots/tmp/
 - Download gmetrics-plugin config files & store into gmetrics-agent 
 - Add entry for gmetrics-agent service port 
 - Add gmetrics-agent user entry into sudoers file
@@ -26,25 +28,35 @@ $ git --version
 
 2. if packages are not present then install using 
 
-$ yum install subversion -y -- Centos7
-$ yum install git -y -- Centos7
+- Centos:
+$ yum install subversion -y  
+$ yum install git -y 
 
-$ apt-get install subersion -- Ubuntu 
-$ apt-get install git -- Ubuntu
+- Ubuntu:
+$ apt-get install subersion 
+$ apt-get install git 
 
-## Agent installation 
+## Gmetrics agent installation on remote server
+
+$ cd /root
 
 $ curl -s -k https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/alpha/v5/bin/gmetrics_agent_setup.sh | bash
 
 - Check & verify service log file
+
 $ tail -f /var/log/groots/metrics/gmetrics-agent.log
 
+- To check installation script log, refer
+
+$ tail -f /var/log/groots/metrics/gmetrics_agent_setup.sh.log
+
 ## Testing
+
 - Verify gmetrics agent service status
 
-$ systemctl enable gmetrics-remote
+$ systemctl enable gmetrics-agent
 
-$ systemctl status gmetrics-remote
+$ systemctl status gmetrics-agent
 
 - Test port connectivity from Locally
 
