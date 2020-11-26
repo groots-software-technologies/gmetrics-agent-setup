@@ -21,9 +21,10 @@ By using this agent installation script, you will install the gmetrics-agent. Th
 
 1. Verify if svn and git package present or not on remote server
 
-$ svn --version && git -version 
+$ svn --version 
+$ git --version 
 
-2. if svn not present then install using 
+2. if packages are not present then install using 
 
 $ yum install subversion -y -- Centos7
 $ yum install git -y -- Centos7
