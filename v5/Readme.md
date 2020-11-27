@@ -84,3 +84,10 @@ $ telnet <REMOTE AGENT IP/HOSTNAME> 5666
 $ cp -av /etc/sudoers /etc/sudoers\_\<DATE\>
 
 $ sed -i -e 's/Defaults    requiretty.*/#Defaults    requiretty/g' /etc/sudoers
+
+### Gmetrics Agent Uninstallation.
+Execute following command to remove gmetrics agent from your server.
+
+$ curl -s -k https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/alpha/v5/bin/gmetrics_agent_uninstall.sh | bash
+
+
