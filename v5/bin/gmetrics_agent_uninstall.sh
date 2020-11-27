@@ -147,7 +147,7 @@ if [ $OSNAME == "Ubuntu" ]; then
         echo "Removing gmetrics-agent ufw entry" | log
         rm -rvf /etc/ufw/applications.d/gmetrics-agent | log
 
-elif [  $OSNAME == "Centos" ]; then
+elif [  $OSNAME == "CentOS" ]; then
         echo "#################################################" | log
         echo "Removing port 5666 from firewalld" | log
         firewall-cmd --permanent --remove-port=5666/tcp | log
