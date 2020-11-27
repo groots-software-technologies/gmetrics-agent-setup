@@ -558,8 +558,8 @@ fi
 
 echo "Gmetrics Agent plugin executor is successfully installed." | log
 echo "Gmetrics Agent Installation is completed at [`date`]." | log
-echo "Remove tmp files from /groots/tmp/"
-rm -rf /groots/tmp/*
+echo "Remove tmp files from /groots/tmp/" | log
+rm -rf /groots/tmp/* > /dev/null
 
 echo "
 NOTE : If gmetrics-agent installation does not started then check installation log file [$LOGFILE]
@@ -569,4 +569,3 @@ NOTE : If gmetrics-agent installation does not started then check installation l
 
 # End Main Logic.
 #######################################################
-
