@@ -123,7 +123,7 @@ remove_user () {
 
 echo "#################################################" | log
 echo "Removing groots user" | log
-userdel groots
+userdel -r groots
 if [ ! -d /home/groots/ ]; then
 echo "#################################################" | log
 echo "groots user home directory is not present" | log
@@ -195,3 +195,5 @@ do
 break
 done
 
+# End Main Logic.
+#######################################################
