@@ -17,7 +17,8 @@
 
 #Set script name
 #######################################################
-SCRIPTNAME=$(basename $0)
+#SCRIPTNAME=$(basename $0)
+SCRIPTNAME="gmetrics_agent_setup.sh"
 
 # Import Hostname
 #######################################################
