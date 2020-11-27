@@ -81,6 +81,6 @@ $ telnet <REMOTE AGENT IP/HOSTNAME> 5666
 
 - Execute following command and check the result.
 
-$ cp -av /etc/sudoers /etc/sudoers_<DATE>
+$ cp -av /etc/sudoers /etc/sudoers\_\<DATE\>
 
 $ sed -i -e 's/Defaults    requiretty.*/#Defaults    requiretty/g' /etc/sudoers
