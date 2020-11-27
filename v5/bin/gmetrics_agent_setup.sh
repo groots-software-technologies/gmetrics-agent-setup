@@ -559,7 +559,7 @@ fi
 echo "Gmetrics Agent plugin executor is successfully installed." | log
 echo "Gmetrics Agent Installation is completed at [`date`]." | log
 echo "Remove tmp files from /groots/tmp/"
-rm -rvf /groots/tmp/*
+rm -rf /groots/tmp/*
 
 echo "
 NOTE : If gmetrics-agent installation does not started then check installation log file [$LOGFILE]
