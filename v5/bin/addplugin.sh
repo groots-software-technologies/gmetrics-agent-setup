@@ -60,6 +60,7 @@ Usage: sh $SCRIPTNAME  -p [plugin name]
 Ex: sh addplugin.sh -p aws
 ";
 exit 3;
+fi
 
 #######################################################
 # Get user-given variables
