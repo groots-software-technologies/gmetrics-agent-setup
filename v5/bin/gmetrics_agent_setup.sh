@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #######################################################
 # Program: Gmetrics Agent installation.
 #
@@ -15,10 +15,17 @@
 # Check for people who need help - aren't we all nice ;-)
 #######################################################
 
-#Set script name
+# Set script name
 #######################################################
 #SCRIPTNAME=$(basename $0)
 SCRIPTNAME="gmetrics_agent_setup.sh"
+
+# type command is checking whether aws, jq, bc, timeout command present or not.
+#######################################################
+# check pre-requisite for fetch AWS cloud watch metrics, below packages must install without this plugin won't run.
+# type command is checking whether svn present or not.
+type svn >/dev/null 2>&1 || { echo >&2 "This plugin require "subversion" package, but it's not installed. Aborting."; exit 1; }
+type sar >/dev/null 2>&1 || { echo >&2 "This plugin require "sysstat" package, but it's not installed. Aborting."; exit 1; }
 
 # Import Hostname
 #######################################################
@@ -55,7 +62,6 @@ then
         echo "#######################################################" | log
         exit 3;
 fi
-
 }
 
 # Main Logic.
@@ -94,7 +100,6 @@ else
         echo "Gmetrics remote user is present, please remove user and home directory."
         exit 3
 fi
-
 }
 
 # Gmetrics agent plugin directory creation.
@@ -115,7 +120,6 @@ URL="https://github.com/grootsadmin/gmetrics-agent-setup/branches/alpha/v5/build
 svn checkout $URL $PLUGINSDIR | log
 echo "#######################################################" | log
 echo "Downloading builds under $PLUGINSDIR directory completed!!!" | log
-
 }
 
 # Verify /groots directory ownership permission
@@ -172,7 +176,6 @@ chmod u+s /bin/ping | log
 chmod u+s /bin/ping6 | log
 }
 
-
 # Verify log path permission
 ######################################################
 
@@ -193,9 +196,7 @@ else
         echo "########################################################" | log
         echo "Ownership for /var/log/groots/metrics/ is changed to groots" | log
 fi
-
 }
-
 
 # Extracting gmetrics-remote tar file.
 #######################################################
@@ -216,7 +217,6 @@ echo "Verify gmetrics-agent config directory ownership." | log
 echo "#######################################################" | log
 ls -ltrh /groots/metrics/ | log
 }
-
 
 # Extracting gmetrics-agent tar file.
 #######################################################
