@@ -120,6 +120,10 @@ URL="https://github.com/grootsadmin/gmetrics-agent-setup/branches/alpha/v5/build
 svn checkout $URL $PLUGINSDIR | log
 echo "#######################################################" | log
 echo "Downloading builds under $PLUGINSDIR directory completed!!!" | log
+echo "#######################################################" | log
+echo "Disabling password store for subversion" | log 
+sudo echo 'store-plaintext-passwords = no' >> /root/.subversion/servers | log 
+
 }
 
 # Verify /groots directory ownership permission
