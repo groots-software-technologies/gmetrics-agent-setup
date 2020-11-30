@@ -247,10 +247,14 @@ elif [ "$PLUGINNAME" = "ELK" ] || [ "$PLUGINNAME" = "Elk" ] || [ "$PLUGINNAME" =
     echo "$PLUGINNAME plugin successfully added. " | log
 
 else
-    echo "#######################################################"
-    echo "Invalid $PLUGINNAME. Enter valid plugin name."
+    echo "#######################################################" | log 
+    echo "Invalid $PLUGINNAME. Enter valid plugin name." | log 
     exit 3;
 fi
+
+echo "#######################################################" | log 
+echo " To disable svn password store" | log 
+sudo echo 'store-plaintext-passwords = no' >> /root/.subversion/servers | log 
 
 # End Main logic.
 #######################################################
