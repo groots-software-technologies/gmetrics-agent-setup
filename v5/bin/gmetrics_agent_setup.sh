@@ -69,6 +69,7 @@ fi
 
 REMOTEPACKAGE_RHEL_CENTOS="gmetrics-agent-el7-V5.27.11.2020tar.gz"
 REMOTEPACKAGE_UBUNTU="gmetrics-agent-deb-V5.27.11.2020tar.gz"
+REMOTEPACKAGE_RHEL_CENTOS8="gmetrics-agent-el8-V5.30.11.2020tar.gz"
 
 # Finding installed operating system details.
 #######################################################
