@@ -118,115 +118,115 @@ GITPATH="svn checkout https://github.com/grootsadmin/gmetrics-plugins/trunk/os/l
 
 if [ "$PLUGINNAME" = "sms" ] || [ "$PLUGINNAME" = "Sms" ] || [ "$PLUGINNAME" = "SMS" ] ; then
     echo "Plugin "sms" selected to add in "$DEST" " | log
-    $GITPATH/sms $SVNCMD  >/dev/null || { echo "Wrong git credentials, Exiting now..."; exit 1; }
+    $GITPATH/sms $SVNCMD  2>/dev/null || { echo "Incorrect git credentials, Exiting now..."; exit 1; }
         rm -rf $DEST/.svn
     echo "$PLUGINNAME plugin successfully added. " | log
 
 
 elif [ "$PLUGINNAME" = "aws" ] || [ "$PLUGINNAME" = "Aws" ] || [ "$PLUGINNAME" = "AWS" ] ; then
     echo "Plugin "aws" selected to add in "$DEST" " | log
-    $GITPATH/aws $SVNCMD >/dev/null || { echo "Wrong git credentials, Exiting now..."; exit 1; }
+    $GITPATH/aws $SVNCMD 2>/dev/null || { echo "Incorrect git credentials, Exiting now..."; exit 1; }
         rm -rf $DEST/.svn
     echo "$PLUGINNAME plugin successfully added. " | log
 
 
 elif [ "$PLUGINNAME" = "appsensors" ] || [ "$PLUGINNAME" = "Appsensors" ] || [ "$PLUGINNAME" = "APPSENSORS" ]; then
     echo "Plugin "appsensors" selected to add in "$DEST" " | log
-    $GITPATH/appsensors $SVNCMD >/dev/null || { echo "Wrong git credentials, Exiting now..."; exit 1; }
+    $GITPATH/appsensors $SVNCMD 2>/dev/null || { echo "Incorrect git credentials, Exiting now..."; exit 1; }
         rm -rf $DEST/.svn
     echo "$PLUGINNAME plugin successfully added. " | log
 
 
 elif [ "$PLUGINNAME" = "expiry" ] || [ "$PLUGINNAME" = "Expiry" ] || [ "$PLUGINNAME" = "EXPIRY" ]; then
     echo "Plugin "expiry" selected to add in "$DEST" " | log
-    $GITPATH/expiry $SVNCMD >/dev/null || { echo "Wrong git credentials, Exiting now..."; exit 1; }
+    $GITPATH/expiry $SVNCMD 2>/dev/null || { echo "Incorrect git credentials, Exiting now..."; exit 1; }
         rm -rf $DEST/.svn
     echo "$PLUGINNAME plugin successfully added. " | log
 
 
 elif [ "$PLUGINNAME" = "backup" ] || [ "$PLUGINNAME" = "Backup" ] || [ "$PLUGINNAME" = "BACKUP" ]; then
     echo "Plugin "backup" selected to add in "$DEST" " | log
-    $GITPATH/backup $SVNCMD >/dev/null || { echo "Wrong git credentials, Exiting now..."; exit 1; }
+    $GITPATH/backup $SVNCMD 2>/dev/null || { echo "Incorrect git credentials, Exiting now..."; exit 1; }
         rm -rf $DEST/.svn
     echo "$PLUGINNAME plugin successfully added. " | log
 
 
 elif [ "$PLUGINNAME" = "dns" ] || [ "$PLUGINNAME" = "DNS" ] || [ "$PLUGINNAME" = "dns" ]; then
     echo "Plugin "dns" selected to add in "$DEST" " | log
-    $GITPATH/dns $SVNCMD >/dev/null || { echo "Wrong git credentials, Exiting now..."; exit 1; }
+    $GITPATH/dns $SVNCMD 2>/dev/null || { echo "Incorrect git credentials, Exiting now..."; exit 1; }
         rm -rf $DEST/.svn
     echo "$PLUGINNAME plugin successfully added. " | log
 
 
 elif [ "$PLUGINNAME" = "docker" ] || [ "$PLUGINNAME" = "Docker" ] || [ "$PLUGINNAME" = "DOCKER" ]; then
     echo "Plugin "docker" selected to add in "$DEST" " | log
-    $GITPATH/docker $SVNCMD >/dev/null || { echo "Wrong git credentials, Exiting now..."; exit 1; }
+    $GITPATH/docker $SVNCMD 2>/dev/null || { echo "Incorrect git credentials, Exiting now..."; exit 1; }
         rm -rf $DEST/.svn
     echo "$PLUGINNAME successfully added. " | log
 
 
 elif [ "$PLUGINNAME" = "hardware" ] || [ "$PLUGINNAME" = "Hardware" ] || [ "$PLUGINNAME" = "HARDWARE" ]; then
     echo "Plugin "hardware" selected to add in "$DEST" " | log
-    $GITPATH/hardware $SVNCMD >/dev/null || { echo "Wrong git credentials, Exiting now..."; exit 1; }
+    $GITPATH/hardware $SVNCMD 2>/dev/null || { echo "Incorrect git credentials, Exiting now..."; exit 1; }
         rm -rf $DEST/.svn
     echo "$PLUGINNAME plugin successfully added. " | log
 
 
 elif [ "$PLUGINNAME" = "lamp" ] || [ "$PLUGINNAME" = "Lamp" ] || [ "$PLUGINNAME" = "LAMP" ]; then
     echo "Plugin "lamp" selected to add in "$DEST" " | log
-    $GITPATH/lamp $SVNCMD >/dev/null || { echo "Wrong git credentials, Exiting now..."; exit 1; }
+    $GITPATH/lamp $SVNCMD 2>/dev/null || { echo "Incorrect git credentials, Exiting now..."; exit 1; }
         rm -rf $DEST/.svn
     echo "$PLUGINNAME plugin successfully added. " | log
 
 
 elif [ "$PLUGINNAME" = "mithi" ] || [ "$PLUGINNAME" = "Mithi" ] || [ "$PLUGINNAME" = "MITHI" ]; then
     echo "Plugin "mithi" selected to add in "$DEST" " | log
-    $GITPATH/mithi $SVNCMD >/dev/null || { echo "Wrong git credentials, Exiting now..."; exit 1; }
+    $GITPATH/mithi $SVNCMD 2>/dev/null || { echo "Incorrect git credentials, Exiting now..."; exit 1; }
         rm -rf $DEST/.svn
     echo "$PLUGINNAME plugin successfully added. " | log
 
 
 elif [ "$PLUGINNAME" = "os" ] || [ "$PLUGINNAME" = "Os" ] || [ "$PLUGINNAME" = "OS" ]; then
     echo "Plugin "os" selected to add in "$DEST" " | log
-    $GITPATH/os $SVNCMD >/dev/null || { echo "Wrong git credentials, Exiting now..."; exit 1; }
+    $GITPATH/os $SVNCMD 2>/dev/null || { echo "Incorrect git credentials, Exiting now..."; exit 1; }
         rm -rf $DEST/.svn
     echo "$PLUGINNAME plugin successfully added. " | log
 
 
 elif [ "$PLUGINNAME" = "jvm" ] || [ "$PLUGINNAME" = "Jvm" ] || [ "$PLUGINNAME" = "JVM" ]; then
     echo "Plugin "jvm" selected to add in "$DEST" " | log
-    $GITPATH/jvm $SVNCMD >/dev/null || { echo "Wrong git credentials, Exiting now..."; exit 1; }
+    $GITPATH/jvm $SVNCMD 2>/dev/null || { echo "Incorrect git credentials, Exiting now..."; exit 1; }
         rm -rf $DEST/.svn
     echo "$PLUGINNAME plugin successfully added. " | log
 
 
 elif [ "$PLUGINNAME" = "website" ] || [ "$PLUGINNAME" = "Website" ] || [ "$PLUGINNAME" = "WEBSITE" ]; then
     echo "Plugin "website" selected to add in "$DEST" " | log
-    $GITPATH/website $SVNCMD >/dev/null || { echo "Wrong git credentials, Exiting now..."; exit 1; }
+    $GITPATH/website $SVNCMD  2>/dev/null || { echo "Incorrect git credentials, Exiting now..."; exit 1; }
         rm -rf $DEST/.svn
     echo "$PLUGINNAME plugin successfully added. " | log
 
 elif [ "$PLUGINNAME" = "node" ] || [ "$PLUGINNAME" = "Node" ] || [ "$PLUGINNAME" = "NODE" ]; then
     echo "Plugin "node" selected to add in "$DEST" " | log
-    $GITPATH/node $SVNCMD >/dev/null || { echo "Wrong git credentials, Exiting now..."; exit 1; }
+    $GITPATH/node $SVNCMD 2>/dev/null || { echo "Incorrect git credentials, Exiting now..."; exit 1; }
     rm -rf $DEST/.svn
     echo "$PLUGINNAME plugin successfully added. " | log
 
 elif [ "$PLUGINNAME" = "jenkins" ] || [ "$PLUGINNAME" = "Jenkins" ] || [ "$PLUGINNAME" = "JENKINS" ]; then
     echo "Plugin "jenkins" selected to add in "$DEST" " | log
-    $GITPATH/jenkins $SVNCMD >/dev/null || { echo "Wrong git credentials, Exiting now..."; exit 1; }
+    $GITPATH/jenkins $SVNCMD 2>/dev/null || { echo "Incorrect git credentials, Exiting now..."; exit 1; }
     rm -rf $DEST/.svn
     echo "$PLUGINNAME plugin successfully added. " | log
 
 elif [ "$PLUGINNAME" = "ELK" ] || [ "$PLUGINNAME" = "Elk" ] || [ "$PLUGINNAME" = "elk" ]; then
     echo "Plugin "elk" selected to add in "$DEST" " | log
-    $GITPATH/elk $SVNCMD >/dev/null || { echo "Wrong git credentials, Exiting now..."; exit 1; }
+    $GITPATH/elk $SVNCMD 2>/dev/null || { echo "Incorrect git credentials, Exiting now..."; exit 1; }
     rm -rf $DEST/.svn
     echo "$PLUGINNAME plugin successfully added. " | log
 
 else
-    echo "#######################################################"
-    echo "Invalid $PLUGINNAME. Enter valid plugin name. Exiting now..!"
+    echo "#######################################################" | log 
+    echo "Invalid $PLUGINNAME. Enter valid plugin name. Exiting now..!" | log 
     exit 3;
 fi
 

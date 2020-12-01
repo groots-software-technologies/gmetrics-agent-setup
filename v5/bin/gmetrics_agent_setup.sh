@@ -222,6 +222,28 @@ echo "#######################################################" | log
 ls -ltrh /groots/metrics/ | log
 }
 
+
+# Extracting gmetrics-remote tar file.
+#######################################################
+
+gmetrics_agent_centos8_untarzipfile () {
+
+echo "#######################################################" | log
+echo "Gmetrics agent tarball extracting." | log
+tar -tvf $PLUGINSDIR/$REMOTEPACKAGE_RHEL_CENTOS8 | log
+echo "#######################################################" | log
+tar -pxvf $PLUGINSDIR/$REMOTEPACKAGE_RHEL_CENTOS8 -C /  | log
+echo "#######################################################" | log
+echo "Gmetrics build successfully extracted." | log
+echo "#######################################################" | log
+echo "Updating ownership of gmetrics-agent config directory"   | log
+chown -R groots. /groots/metrics/  | log
+echo "Verify gmetrics-agent config directory ownership." | log
+echo "#######################################################" | log
+ls -ltrh /groots/metrics/ | log
+}
+
+
 # Extracting gmetrics-agent tar file.
 #######################################################
 
@@ -293,7 +315,7 @@ gmetrics_agent_firewall () {
 echo "#######################################################" | log
 echo "Adding gmetrics-agent port in firewall." | log
 
-if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ]; then
+if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ] || [ "$OS_VERSION" = "8" ]; then
         SERVICETOOL="systemctl status firewalld | egrep -i 'Active'"
         STATUS_MSG=$(eval "$SERVICETOOL|tail -n 1" 2>&1)
         echo "Server firewall : $STATUS_MSG" | log
@@ -456,7 +478,7 @@ check_user
 #######################################################
 gmetrics_agent_os_details
 
-if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ]; then
+if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ] || [ "$OS_VERSION" = "8" ]; then
         echo "#######################################################" | log
         echo "Gmetrics agent installtion starting at [`date`]." | log
         echo "#######################################################" | log
@@ -485,6 +507,13 @@ if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ]; then
         # Changing permissions of file /bin/ping and /bin/ping6
         gmetrics_agent_change_ping_permission
 
+	if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "8" ]; then
+	gmetrics_agent_centos8_untarzipfile
+
+	elif [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ]; then
+	gmetrics_agent_centos7_untarzipfile
+
+	fi
 
         # Extracting gmetrics-agent tar file.
         gmetrics_agent_centos7_untarzipfile
