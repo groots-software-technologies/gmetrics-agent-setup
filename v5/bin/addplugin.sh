@@ -104,12 +104,6 @@ read -s PASSWORD
 
 }
 
-quit () {
-
-echo "Wrong creds"
-exit 1;
-}
-
 # Destination path
 #######################################################
 DEST="/groots/metrics/libexec/"
