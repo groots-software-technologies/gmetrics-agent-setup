@@ -17,7 +17,7 @@
 
 # Set script name
 #######################################################
-#SCRIPTNAME=$(basename $0)
+
 SCRIPTNAME="gmetrics_agent_setup.sh"
 
 # type command is checking whether aws, jq, bc, timeout command present or not.
@@ -82,6 +82,24 @@ OSNAME=$(cat /etc/*release | grep "PRETTY_NAME" | sed 's/PRETTY_NAME=//g' | sed 
 echo "Installed operating system : $OSNAME" | log
 OS_VERSION=$(cat /etc/*release | grep "VERSION_ID" | sed 's/VERSION_ID=//g' |sed 's/["]//g' | awk '{print $1}' | cut -d. -f1)
 echo "OS Version is : $OS_VERSION" | log
+}
+
+# Check Selinux status - to be in disabled mode 
+#######################################################
+
+verify_selinux () {
+
+echo "#######################################################" | log 
+echo "Verifying status of Selinux.." | log 
+
+SELINUX_STATUS=`getenforce`
+
+if [ "$SELINUX_STATUS" == "Enforcing" ]; then
+        echo "#######################################################" | log 
+        echo "WARNING! Selinux is in enforcing mode!!" | log 
+        echo "#######################################################" | log 
+fi
+
 }
 
 # Gmetrics agent user addition.
@@ -489,6 +507,9 @@ if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ] || [ "$OS_VERSION" = "8" 
         echo "#######################################################" | log
         echo "Installing gmetrics required packages." | log
         echo "You need to install these os libraries packages on the server : sysstat telnet net-tools wget make bind-utils openssl openssl-devel mod_ssl lsof bc" | log
+
+	# Check Selinux mode
+	verify_selinux 
 
         # Gmetrics remote user addition.
         gmetrics_agent_user_addition
