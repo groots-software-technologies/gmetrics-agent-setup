@@ -11,7 +11,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-set
 
 ### To add plugins
 
-bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/alpha/v5/bin/addplugin.sh) -p <pluginname>
+bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/alpha/v5/bin/addplugin.sh) -p (pluginname)
 
 - Plugins will get copied to groots/metrics/libexec directory
 
