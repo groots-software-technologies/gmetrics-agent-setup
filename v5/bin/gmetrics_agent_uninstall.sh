@@ -53,23 +53,22 @@ while read line; do echo "[`date +"%Y-%m-%dT%H:%M:%S,%N" | rev | cut -c 7- | rev
 
 disable_service () {
 
-if [ -f /lib/systemd/system/gmetrics-agent.service ];then
+if [ -f /lib/systemd/system/gmetrics-agent.service ]
+then
 	echo "#################################################" | log
 	echo "Disabling gmetrics-agent service" | log
 	sudo systemctl disable gmetrics-agent | log
 	echo "#################################################" | log
+	echo "Stopping gmetrics-agent service" | log
 	sudo systemctl stop gmetrics-agent | log
-	echo "gmetrics-agent service stopped" | log
 	echo "#################################################" | log
+	echo "Removing gmetrics-agent service" | log
 	rm -rvf /lib/systemd/system/gmetrics-agent.service | log
-	echo "gmetrics-agent service successfully removed." | log
 	echo "#################################################" | log
-	echo "Daemon reloading to make changes" | log
+	echo "Reload systemd daemon to apply changes" | log
 	sudo systemctl daemon-reload | log
 else
-	echo "gmetrics-agent.service is not present. Could not remove. Exiting..." | log 
-	exit 1;
-
+	echo "gmetrics-agent.service is not found." | log 
 fi
 }
 
@@ -78,17 +77,14 @@ fi
 
 remove_logrotate () {
 
-echo "#################################################" | log
-echo "Removing logrotate file" | log
-
-if [ -f /etc/logrotate.d/gmetrics-agent ]; then
+if [ -f /etc/logrotate.d/gmetrics-agent ]
+then
 	echo "#################################################" | log
+	echo "Removing logrotate file" | log
 	sudo rm -rvf /etc/logrotate.d/gmetrics-agent | log
-	echo "#################################################" | log
-	echo "Removed "/etc/logrotate.d/gmetrics-agent" file" | log
 else
 	echo "#################################################" | log
-	echo "No /etc/logrotate.d/gmetrics-agent file found. Could not remove..!" | log
+	echo "gmetrics-agent logrotate file not found." | log
 fi
 }
 
@@ -98,10 +94,10 @@ fi
 remove_service_port () {
 
 echo "#################################################" | log
-echo "Take backup of "/etc/services"" | log
+echo "Take backup of service file" | log
 cp -avp /etc/services /etc/services_$(date +"%d-%m-%YT%H-%M-%S") | log
 echo "#################################################" | log
-echo "Remove port from Service file" | log
+echo "Remove gmetrics-agent port from Service file" | log
 sed -i '/gmetrics-agent 5666\/tcp # Gmetrics services/d' /etc/services | log
 }
 
@@ -112,20 +108,20 @@ sed -i '/gmetrics-agent 5666\/tcp # Gmetrics services/d' /etc/services | log
 remove_groots_directory () {
 
 echo "#################################################" | log
-echo "Emptying "/groots/tmp/" directory" | log
+echo "Cleaning temporary files and directory from \"/groots/tmp/\"" | log
 rm -rvf /groots/tmp/* | log
 rm -rvf /groots/tmp/.svn/ | log
 
-if [ -d /groots/metrics  ]; then
+if [ -d /groots/metrics  ]
+then
 	echo "#################################################" | log
-	echo "Removing "/groots/metrics" directory" | log
+	echo "Removing gmetrics-agent config directory" | log
 	rm -rvf /groots/metrics | log
 	echo "#################################################" | log
-	echo ""/groots/metrics" directory is present and removed successfully" | log
+	echo "gmetrics-agent directory successfully cleaned." | log
 else
 	echo "#################################################" | log
-	echo "No "/groots/metrics" directory found. Could not remove..!!" | log
-
+	echo "gmetrics-agent config directory not found." | log
 fi
 
 }
@@ -139,14 +135,14 @@ echo "#################################################" | log
 echo "Removing groots user" | log
 getent passwd groots   > /dev/null
 
-if [ `echo $?` -eq 0 ]; then
-	userdel -r groots > /dev/null
+if [ `echo $?` -eq 0 ]
+then
 	echo "#################################################" | log
-	echo "Removed groots user and home directory" | log
+	echo "Removing gmetrics-agent user home directory" | log
+	userdel -r groots > /dev/null
 else
 	echo "#################################################" | log
-	echo "groots user not found..!!" | log
-	exit 1;
+	echo "gmetrics-agent user home directory not found." | log
 fi
 }
 
@@ -161,14 +157,14 @@ if [ $OSNAME == "Ubuntu" ]; then
         echo "#################################################" | log
         echo "Removing gmetrics-agent ufw entry" | log
         rm -rvf /etc/ufw/applications.d/gmetrics-agent | log
-
 elif [  $OSNAME == "CentOS" ]; then
         echo "#################################################" | log
-        echo "Removing port 5666 from firewalld" | log
+        echo "Removing gmetrics-agent port from firewall" | log
         firewall-cmd --permanent --remove-port=5666/tcp | log
         firewall-cmd --reload | log
         firewall-cmd --list-all | log
-        echo "gmetrics-agent port is removed." | log
+        echo "#################################################" | log
+        echo "gmetrics-agent port successfully removed" | log
 fi
 
 }
@@ -179,15 +175,14 @@ fi
 
 remove_sudoers_entry () {
 
-echo "#################################################" | log
-echo "Removing sudoers entry for gmetrics-agent" | log
-if [ -f /etc/sudoers.d/gmetrics-agent ]; then
+if [ -f /etc/sudoers.d/gmetrics-agent ]
+then
 	echo "#################################################" | log
+	echo "Removing gmetrics-agent user entry from sudoers file." | log
 	rm -rvf /etc/sudoers.d/gmetrics-agent | log
-	echo "Removed "/etc/sudoers.d/gmetrics-agent" " | log
 else
 	echo "#################################################" | log
-	echo "No entry for gmetrics-agent in sudoers found.." | log
+	echo "gmetrics-agent user entry not found in sudoers file." | log
 fi
 }
 
@@ -197,7 +192,8 @@ fi
 while true
 do
         echo "#######################################################" | log
-        echo "Gmetrics agent uninstallation starting at [`date`]." | log
+        echo "Gmetrics agent cleanup process started at [`date`]." | log
+
         disable_service
         remove_firewall_entry
         remove_logrotate
@@ -205,13 +201,24 @@ do
         remove_user
         remove_sudoers_entry
         remove_groots_directory
+
+if [ `echo $?` = 0 ]
+then
         echo "#######################################################" | log
         echo "Gmetrics Agent is successfully uninstalled." | log
-        echo "Gmetrics Agent uninstallation is completed at [`date`]." | log
+        echo "Gmetrics Agent cleanup process completed at [`date`].
+	      Please Refer logfile [$LOGFILE] for more info." | log
         echo "#######################################################" | log
-
+else
+        echo "#######################################################" | log
+        echo "Gmetrics Agent is [FAILED] to uninstalled.
+	      Please Refer logfile [$LOGFILE] for more info." | log
+        echo "#######################################################" | log
+fi
 break
 done
 
 # End Main Logic.
 #######################################################
+
+
