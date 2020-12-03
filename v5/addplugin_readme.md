@@ -1,6 +1,7 @@
 # Add remote side plugin
 
 ## Summary
+
 To copy gmetrics plugins from git to remote host's /groots/metrics/libexec directory
 
 # Execution 
@@ -11,7 +12,11 @@ bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-set
 
 ### To add plugins
 
-bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/alpha/v5/bin/addplugin.sh) -p (pluginname)
+$ bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/<branch>/v5/bin/addplugin.sh) -p (pluginname)
+
+Ex:
+
+$ bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/alpha/v5/bin/addplugin.sh) -p (pluginname)
 
 - Plugins will get copied to groots/metrics/libexec directory
 
