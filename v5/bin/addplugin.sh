@@ -77,13 +77,6 @@ do
         esac
 done
 
-# Get OS
-#######################################################
-
-OSNAME=$(cat /etc/*release | grep "PRETTY_NAME" | sed 's/PRETTY_NAME=//g' | sed 's/["]//g' | awk '{print $1}')
-echo "#######################################################" | log
-echo "Verifying if Subversion is present or not.." | log
-
 # type command is checking whether svn command present or not.
 #######################################################
 
