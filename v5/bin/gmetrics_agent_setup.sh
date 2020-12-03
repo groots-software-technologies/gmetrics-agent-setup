@@ -139,6 +139,9 @@ read BRANCH
 #URL="https://github.com/grootsadmin/gmetrics-agent-setup/branches/alpha/v5/builds"
 URL="https://github.com/grootsadmin/gmetrics-agent-setup/$BRANCH/v5/builds"
 svn checkout $URL $PLUGINSDIR | log
+
+echo "#######################################################" | log
+ls $PLUGINSDIR*.gz  > /dev/null 2>&1  || { echo "Builds have been not downloaded under $PLUGINSDIR. Exiting.." ; exit 1; }
 echo "#######################################################" | log
 echo "Downloading builds under $PLUGINSDIR directory completed!!!" | log
 echo "#######################################################" | log
