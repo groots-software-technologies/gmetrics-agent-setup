@@ -135,7 +135,13 @@ echo "Gmetrics plugin \"$PLUGINSDIR\" directory successfully created" | log
 echo "#######################################################" | log
 echo "Downloading Agent builds under $PLUGINSDIR directory" | log
 read BRANCH
-
+if [ $BRANCH != "" ]
+then
+	BRANCH=$BRANCH
+else
+	echo "Please enter valid branch name" | log
+	exit 3
+fi
 URL="https://github.com/grootsadmin/gmetrics-agent-setup/$BRANCH/v5/builds"
 svn checkout $URL $PLUGINSDIR | log
 echo "#######################################################" | log
