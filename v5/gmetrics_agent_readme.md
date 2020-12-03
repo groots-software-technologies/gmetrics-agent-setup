@@ -45,7 +45,7 @@ $ apt-get install git -y
 
 $ cd /root
 
-$ echo "branches/<branch>" | bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/<branch>/v5/bin/gmetrics_agent_setup.sh)
+$ echo "branches/<branch>" | bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/[branch]/v5/bin/gmetrics_agent_setup.sh)
  
 Ex:
  
@@ -92,7 +92,7 @@ $ sed -i -e 's/Defaults    requiretty.*/#Defaults    requiretty/g' /etc/sudoers
 ### Gmetrics Agent Uninstallation.
 Execute following command to remove gmetrics agent from your server.
 
-$ curl -s -k https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/<branch>/v5/bin/gmetrics_agent_uninstall.sh | bash
+$ curl -s -k https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/[branch]/v5/bin/gmetrics_agent_uninstall.sh | bash
 
 Ex: 
 
