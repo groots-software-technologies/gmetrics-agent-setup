@@ -17,13 +17,10 @@
 
 # Set script name
 #######################################################
-
 SCRIPTNAME="gmetrics_agent_setup.sh"
 
-# type command is checking whether aws, jq, bc, timeout command present or not.
+# type command is checking whether svn, sar command present or not.
 #######################################################
-# check pre-requisite for fetch AWS cloud watch metrics, below packages must install without this plugin won't run.
-# type command is checking whether svn present or not.
 type svn >/dev/null 2>&1 || { echo >&2 "This plugin require "subversion" package, but it's not installed. Aborting."; exit 1; }
 type sar >/dev/null 2>&1 || { echo >&2 "This plugin require "sysstat" package, but it's not installed. Aborting."; exit 1; }
 
@@ -125,7 +122,6 @@ fi
 #######################################################
 
 gmetrics_agent_plugin_directory_addition () {
-
 
 echo "#######################################################" | log
 echo "Disabling password store for subversion" | log

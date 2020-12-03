@@ -17,7 +17,6 @@
 
 #Set script name
 #######################################################
-
 SCRIPTNAME="addplugin.sh"
 
 # Import Hostname
@@ -87,7 +86,7 @@ disable_svn_password () {
 
 echo "#######################################################" | log
 echo "Disabling svn password store" | log
-sudo echo 'store-plaintext-passwords = no' >> /root/.subversion/servers | log 
+sudo echo 'store-plaintext-passwords = no' >> /root/.subversion/servers  
 }
 
 #  Download plugins from git using svn to /groots/metrics/libexec
