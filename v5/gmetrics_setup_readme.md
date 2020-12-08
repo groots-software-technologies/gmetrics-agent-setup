@@ -18,6 +18,7 @@ By using this agent installation script, you will install the gmetrics-agent. Th
 - Add gmetrics-agent port into server level firewall
 - Enable & start gmetrics-agent service
 - Test gmetrics-agent connectivity
+- Clean /groots/tmp directory
 
 ## Verify
 
@@ -45,7 +46,7 @@ $ apt-get install git -y
 
 $ cd /root
 
-$ echo "branches/[branch]" | bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/[branch]/v5/bin/gmetrics_agent_setup.sh)
+$ echo "branches/<branch>" | bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/[branch]/v5/bin/gmetrics_agent_setup.sh)
  
 Ex:
  
@@ -67,6 +68,10 @@ $ systemctl enable gmetrics-agent
 
 $ systemctl status gmetrics-agent
 
+- Check gmetrics-agent listening port 
+
+$ netstat -tulpn | grep 5666
+
 - Test port connectivity from Locally
 
 $ telnet localhost 5666
@@ -76,6 +81,13 @@ $ telnet <REMOTE AGENT PRIVATE IP/HOSTNAME> 5666
 - Test port connectivity from Gmetrics-Core cloud server
 
 $ telnet <REMOTE AGENT IP/HOSTNAME> 5666
+
+- Check gmetrics plugins
+
+$ sudo /groots/metrics/libexec/check_metrics -H 127.0.0.1
+
+$ sudo /groots/metrics/libexec/check_metrics -H 192.168.43.90 -c check_users -a '-w 5 -c 8'
+
 
 ## Error
 - If you get following error after agent installation, perform the below task.
@@ -94,8 +106,7 @@ Execute following command to remove gmetrics agent from your server.
 
 $ curl -s -k https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/[branch]/v5/bin/gmetrics_agent_uninstall.sh | bash
 
-Ex:
+Ex: 
 
 $ curl -s -k https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/alpha/v5/bin/gmetrics_agent_uninstall.sh | bash
-
 
