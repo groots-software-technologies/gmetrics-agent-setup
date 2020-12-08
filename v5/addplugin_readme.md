@@ -17,7 +17,7 @@ Ex:
 
 $ bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/alpha/v5/bin/addplugin.sh) -p (pluginname)
 
-- Plugins will get copied to groots/metrics/libexec directory
+- Plugins will get copied to /groots/metrics/libexec directory
 
 ### Refer log
 
