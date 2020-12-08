@@ -86,7 +86,7 @@ $ telnet <REMOTE AGENT IP/HOSTNAME> 5666
 
 $ sudo /groots/metrics/libexec/check_metrics -H 127.0.0.1
 
-$ sudo /groots/metrics/libexec/check_metrics -H 192.168.43.90 -c check_users -a '-w 5 -c 8'
+$ sudo /groots/metrics/libexec/check_metrics -H <IP> -c check_users -a '-w 5 -c 8'
 
 
 ## Error
