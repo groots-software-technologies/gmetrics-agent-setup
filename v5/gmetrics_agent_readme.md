@@ -42,11 +42,27 @@ $ apt-get install subversion -y
 
 $ apt-get install git -y 
 
+- For centos8, following packages are required: 
+
+- Installed below packages for centos 8 server: 
+
+
+$ yum install -y gcc glibc glibc-common make gettext automake autoconf wget openssl-devel net-snmp net-snmp-utils epel-release
+
+$ yum --enablerepo=PowerTools,epel install perl-Net-SNMP -y
+
+$ yum install compat-openssl10 libnsl.so.1 -y
+
+$ dnf install libnsl -y
+
+$ yum install https://download-ib01.fedoraproject.org/pub/epel/8/Everything/x86_64/Packages/t/tcp_wrappers-libs-7.6-96.el8.x86_64.rpm
+
+
 ## Gmetrics agent installation on remote server
 
 $ cd /root
 
-$ echo "branches/<branch>" | bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/[branch]/v5/bin/gmetrics_agent_setup.sh)
+$ echo "branches/[branch]" | bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/[branch]/v5/bin/gmetrics_agent_setup.sh)
  
 Ex:
  
@@ -109,4 +125,5 @@ $ curl -s -k https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/
 Ex: 
 
 $ curl -s -k https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/alpha/v5/bin/gmetrics_agent_uninstall.sh | bash
+
 
