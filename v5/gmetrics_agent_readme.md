@@ -50,6 +50,8 @@ $ yum --enablerepo=PowerTools,epel install perl-Net-SNMP -y
 
 $ yum install compat-openssl10 libnsl.so.1 -y
 
+$ dnf install libnsl -y
+
 $ yum install https://download-ib01.fedoraproject.org/pub/epel/8/Everything/x86_64/Packages/t/tcp_wrappers-libs-7.6-96.el8.x86_64.rpm
 
 
