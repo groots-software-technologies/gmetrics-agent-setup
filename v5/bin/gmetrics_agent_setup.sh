@@ -506,15 +506,33 @@ check_user
 gmetrics_agent_os_details
 
 if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ] || [ "$OS_VERSION" = "8" ]; then
-        echo "#######################################################" | log
+
+	echo "#######################################################" | log
         echo "Gmetrics agent installtion starting at [`date`]." | log
-        echo "#######################################################" | log
-        echo "Verifying if following packages are present or not." | log
-        echo "sysstat gcc glibc glibc-common gd gd-devel make net-snmp openssl-devel bind-utils net-snmp-devel net-snmp-utils net-snmp-perl" | tr ' ' '\n' | while read line; do rpm -qa -last | grep -i $line; done | log
-        echo "openssl" | tr ' ' '\n'  | while read line; do rpm -qa -last | grep -i $line; done | log
-        echo "#######################################################" | log
-        echo "Installing gmetrics required packages." | log
-        echo "You need to install these os libraries packages on the server : sysstat telnet net-tools wget make bind-utils openssl openssl-devel mod_ssl lsof bc" | log
+
+        if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ]; then
+                echo "#######################################################" | log
+                echo "Verifying if following packages are present or not for Centos7.." | log
+                echo "sysstat gcc glibc glibc-common gd gd-devel make net-snmp openssl-devel bind-utils net-snmp-devel net-snmp-utils net-snmp-perl" | tr ' ' '\n' | while read line; do rpm -qa -last | grep -i $line; done | log
+                echo "openssl" | tr ' ' '\n'  | while read line; do rpm -qa -last | grep -i $line; done | log
+                echo "#######################################################" | log
+                echo "Checking Installed gmetrics required packages." | log
+                echo "You need to install these os libraries packages on the server : sysstat telnet net-tools wget make bind-utils openssl openssl-devel mod_ssl lsof bc" | log
+
+        fi
+
+        if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "8" ]; then
+                echo "#######################################################" | log
+                echo "Verifying if following packages are present or not for Centos8.." | log
+                echo "Agent requires following packages on server: tcp_wrappers-libs-6.6-96.el8.x86_64.rpm compat-openssl10 libnsl.so.1 perl-Net-SNMP gcc glibc glibc-common make gettext automake autoconf wget openssl-devel net-snmp net-snmp-utils epel-release epel" | log
+		list=("tcp_wrappers-libs-7.6-96.el8.x86_64" "compat-openssl10" "libnsl" "perl-Net-SNMP" "gcc" "glibc" "glibc-common" "make" "gettext" "automake" "autoconf" "wget" "openssl-devel" "net-snmp" "net-snmp-utils" "abc" "epel-release epel")
+		for package in ${list[@]}; 
+		do
+			rpm -qa -last | grep -i $package || { echo >&2 "ERROR: $package package is not installed. Aborting.."; exit 1; }
+		done
+
+	fi
+
 
 	# Check Selinux mode
 	verify_selinux 
@@ -574,7 +592,7 @@ elif [ "$OSNAME" = "Ubuntu" ]; then
         echo "#######################################################" | log
         echo "Verifying if following packages are present or not." | log
         echo "#######################################################" | log
-        echo "Installing gmetrics required packages." | log
+        echo "Agent gmetrics required packages." | log
         echo "You need to install these os libraries packages on the server : telnet libgd-dev libmcrypt-dev libssl-dev dc snmp libnet-snmp-perl sysstat openssl vim dos2unix git" | log
 
         # Gmetrics agent user addition.
