@@ -525,7 +525,7 @@ if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ] || [ "$OS_VERSION" = "8" 
                 echo "#######################################################" | log
                 echo "Verifying if following packages are present or not for Centos8.." | log
                 echo "Agent requires following packages on server: tcp_wrappers-libs-6.6-96.el8.x86_64.rpm compat-openssl10 libnsl.so.1 perl-Net-SNMP gcc glibc glibc-common make gettext automake autoconf wget openssl-devel net-snmp net-snmp-utils epel-release epel" | log
-		list=("tcp_wrappers-libs-7.6-96.el8.x86_64" "compat-openssl10" "libnsl" "perl-Net-SNMP" "gcc" "glibc" "glibc-common" "make" "gettext" "automake" "autoconf" "wget" "openssl-devel" "net-snmp" "net-snmp-utils" "abc" "epel-release epel")
+		list=("tcp_wrappers-libs-7.6-96.el8.x86_64" "compat-openssl10" "libnsl" "perl-Net-SNMP" "gcc" "glibc" "glibc-common" "make" "gettext" "automake" "autoconf" "wget" "openssl-devel" "net-snmp" "net-snmp-utils" "epel-release epel")
 		for package in ${list[@]}; 
 		do
 			rpm -qa -last | grep -i $package || { echo >&2 "ERROR: $package package is not installed. Aborting.."; exit 1; }
