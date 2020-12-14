@@ -191,7 +191,16 @@ fi
 
 while true
 do
-        echo "#######################################################" | log
+	echo -e -n "\e[0;31mUninstallation process does not takes any backup and not irreversible configuration on reinstallation"
+	echo ""
+	echo -e -n "\e[0;31mWould you really want to remove gmetrics agent(y/n)? "  
+	echo -e -n '\e[0;0m' 
+	read USERINPUT 
+
+	if [ $USERINPUT = "y" ] || [ $USERINPUT = "Y" ] || [ $USERINPUT = "yes" ] || [ $USERINPUT = "YES" ]
+	then
+	echo "Uninstallation process starting." | log 
+	echo "#######################################################" | log
         echo "Gmetrics agent cleanup process started at [`date`]." | log
 
         disable_service
@@ -215,6 +224,12 @@ else
 	      Please Refer logfile [$LOGFILE] for more info." | log
         echo "#######################################################" | log
 fi
+
+else
+echo "Uninstallation process is skipped." | log 
+
+fi
+
 break
 done
 
