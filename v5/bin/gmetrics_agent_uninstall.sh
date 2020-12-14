@@ -211,26 +211,30 @@ do
         remove_sudoers_entry
         remove_groots_directory
 
-if [ `echo $?` = 0 ]
-then
+
+	else
+	echo "Uninstallation process is skipped." | log 
+	exit 3; 
+
+	fi
+
+	if [ `echo $?` = 0 ]
+	then
         echo "#######################################################" | log
         echo "Gmetrics Agent is successfully uninstalled." | log
         echo "Gmetrics Agent cleanup process completed at [`date`].
 	      Please Refer logfile [$LOGFILE] for more info." | log
         echo "#######################################################" | log
-else
+	else
         echo "#######################################################" | log
         echo "Gmetrics Agent is [FAILED] to uninstalled.
 	      Please Refer logfile [$LOGFILE] for more info." | log
         echo "#######################################################" | log
-fi
+	fi
 
-else
-echo "Uninstallation process is skipped." | log 
-
-fi
 
 break
+
 done
 
 # End Main Logic.
