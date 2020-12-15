@@ -174,7 +174,7 @@ then
 	exit 3;
 else
         echo "########################################################" | log
-        echo "Permission verified for /groots direcrtory" | log
+        echo "Permission verified for /groots directory" | log
         echo "Directory permission for "/groots" is set - $DIRPERMISSION
               Directory ownsership for "/groots" is set - $USEROWNERSHIP
               Directory groupownership for  "/groots" is set - $GROUPOWNERSHIP" | log
