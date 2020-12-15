@@ -44,9 +44,6 @@ $ apt-get install git -y
 
 - For centos8, following packages are required: 
 
-- Installed below packages for centos 8 server: 
-
-
 $ yum install -y gcc glibc glibc-common make gettext automake autoconf wget openssl-devel net-snmp net-snmp-utils epel-release
 
 $ yum --enablerepo=PowerTools,epel install perl-Net-SNMP -y
@@ -56,8 +53,6 @@ $ yum install compat-openssl10 libnsl.so.1 -y
 $ dnf install libnsl -y
 
 $ yum install https://download-ib01.fedoraproject.org/pub/epel/8/Everything/x86_64/Packages/t/tcp_wrappers-libs-7.6-96.el8.x86_64.rpm
-
-- Verify Selinux for CentOS, it is to be disabled.
 
 
 ## Gmetrics agent installation on remote server
@@ -122,10 +117,10 @@ $ sed -i -e 's/Defaults    requiretty.*/#Defaults    requiretty/g' /etc/sudoers
 ### Gmetrics Agent Uninstallation.
 Execute following command to remove gmetrics agent from your server.
 
-$ curl -s -k https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/[branch]/v5/bin/gmetrics_agent_uninstall.sh | bash
+$ bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/alpha/v5/bin/gmetrics_agent_uninstall.sh)
 
 Ex: 
 
-$ curl -s -k https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/alpha/v5/bin/gmetrics_agent_uninstall.sh | bash
+$ bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/alpha/v5/bin/gmetrics_agent_uninstall.sh)
 
 

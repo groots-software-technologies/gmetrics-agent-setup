@@ -191,7 +191,16 @@ fi
 
 while true
 do
-        echo "#######################################################" | log
+	echo -e -n "\e[0;31mUninstallation process does not takes any backup and not irreversible configuration on reinstallation"
+	echo ""
+	echo -e -n "\e[0;31mWould you really want to remove gmetrics agent(y/n)? "  
+	echo -e -n '\e[0;0m' 
+	read USERINPUT 
+
+	if [ $USERINPUT = "y" ] || [ $USERINPUT = "Y" ] || [ $USERINPUT = "yes" ] || [ $USERINPUT = "YES" ]
+	then
+	echo "Uninstallation process starting." | log 
+	echo "#######################################################" | log
         echo "Gmetrics agent cleanup process started at [`date`]." | log
 
         disable_service
@@ -202,20 +211,30 @@ do
         remove_sudoers_entry
         remove_groots_directory
 
-if [ `echo $?` = 0 ]
-then
+
+	else
+	echo "Uninstallation process is skipped." | log 
+	exit 3; 
+
+	fi
+
+	if [ `echo $?` = 0 ]
+	then
         echo "#######################################################" | log
         echo "Gmetrics Agent is successfully uninstalled." | log
         echo "Gmetrics Agent cleanup process completed at [`date`].
 	      Please Refer logfile [$LOGFILE] for more info." | log
         echo "#######################################################" | log
-else
+	else
         echo "#######################################################" | log
         echo "Gmetrics Agent is [FAILED] to uninstalled.
 	      Please Refer logfile [$LOGFILE] for more info." | log
         echo "#######################################################" | log
-fi
+	fi
+
+
 break
+
 done
 
 # End Main Logic.
