@@ -171,13 +171,14 @@ then
               Directory permission for "/groots/" is set - $DIRPERMISSION
               Directory userownership for  "/groots/" is set - $USEROWNERSHIP
               Directory groupownership for  "/groots/" is set - $GROUPOWNERSHIP " | log
+	exit 3;
 else
         echo "########################################################" | log
         echo "Permission verification failed for /groots direcrtory" | log
         echo "Directory permission for "/groots" is set - $DIRPERMISSION
               Directory ownsership for "/groots" is set - $USEROWNERSHIP
               Directory groupownership for  "/groots" is set - $GROUPOWNERSHIP" | log
-        exit 3
+#        exit 3
 fi
 }
 
