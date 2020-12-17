@@ -130,7 +130,6 @@ echo "#######################################################" | log
 echo "Gmetrics plugin directory creating." | log
 PLUGINSDIR="/groots/tmp/"
 mkdir -p $PLUGINSDIR
-chown -R groots. $PLUGINSDIR
 echo "Gmetrics plugin \"$PLUGINSDIR\" directory successfully created" | log
 
 echo "#######################################################" | log
@@ -161,9 +160,9 @@ verify_groots_dir_permission () {
 
 echo "#######################################################" | log
 echo "Verifying Permission and ownership of "/groots" directory " | log
-DIRPERMISSION=$(stat -c '%a' /groots/metrics)
-USEROWNERSHIP=$(ls -ld /groots/metrics | awk '{print $3}')
-GROUPOWNERSHIP=$(ls -ld /groots/metrics | awk '{print $4}')
+DIRPERMISSION=$(stat -c '%a' /groots)
+USEROWNERSHIP=$(ls -ld /groots | awk '{print $3}')
+GROUPOWNERSHIP=$(ls -ld /groots | awk '{print $4}')
 
 if [ "$DIRPERMISSION" = "755" ] && [ "$USEROWNERSHIP" = "root" ] && [ "$GROUPOWNERSHIP" = "root" ]
 then
