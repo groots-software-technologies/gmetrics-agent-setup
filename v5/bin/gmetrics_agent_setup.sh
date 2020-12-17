@@ -159,26 +159,25 @@ echo "Downloading builds under $PLUGINSDIR directory completed!!!" | log
 verify_groots_dir_permission () {
 
 echo "#######################################################" | log
-echo "Verifying Permission and ownership of "/groots" directory " | log
+echo "Verifying Permission and ownership of "/groots" directory " | log 
 DIRPERMISSION=$(stat -c '%a' /groots)
 USEROWNERSHIP=$(ls -ld /groots | awk '{print $3}')
 GROUPOWNERSHIP=$(ls -ld /groots | awk '{print $4}')
 
-if [ "$DIRPERMISSION" = "755" ] && [ "$USEROWNERSHIP" = "root" ] && [ "$GROUPOWNERSHIP" = "root" ]
+if [ "$DIRPERMISSION" = "755" ] && [ "$USEROWNERSHIP" = "root" ] && [ "$GROUPOWNERSHIP" = "root" ] 
 then
-        echo "########################################################" | log
-        echo "Permission verification failed for /groots directory
-              Directory permission for "/groots/" is set - $DIRPERMISSION
-              Directory userownership for  "/groots/" is set - $USEROWNERSHIP
-              Directory groupownership for  "/groots/" is set - $GROUPOWNERSHIP " | log
-	exit 3;
+	echo "########################################################" | log
+	echo "Permission verified for /groots directory
+	      Directory permission for "/groots/" is set - $DIRPERMISSION
+	      Directory userownership for  "/groots/" is set - $USEROWNERSHIP
+	      Directory groupownership for  "/groots/" is set - $GROUPOWNERSHIP " | log 
 else
-        echo "########################################################" | log
-        echo "Permission verified for /groots directory" | log
-        echo "Directory permission for "/groots" is set - $DIRPERMISSION
-              Directory ownsership for "/groots" is set - $USEROWNERSHIP
-              Directory groupownership for  "/groots" is set - $GROUPOWNERSHIP" | log
-#        exit 3
+	echo "########################################################" | log
+	echo "Permission verification failed for /groots direcrtory" | log 
+	echo "Directory permission for "/groots" is set - $DIRPERMISSION
+	      Directory ownsership for "/groots" is set - $USEROWNERSHIP
+	      Directory groupownership for  "/groots" is set - $GROUPOWNERSHIP" | log 
+	exit 3
 fi
 }
 
