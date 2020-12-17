@@ -160,6 +160,15 @@ verify_groots_dir_permission () {
 
 echo "#######################################################" | log
 echo "Verifying Permission and ownership of "/groots" directory " | log 
+echo "#######################################################" | log
+
+if [ `stat -c "%a" /groots` = 755 ]; then
+	echo "Directory permission for "/groots" is 755 " | log
+else
+	echo "Changing directory permission to 755 for "/groots"" | log
+	chmod 755 /groots
+fi
+
 DIRPERMISSION=$(stat -c '%a' /groots)
 USEROWNERSHIP=$(ls -ld /groots | awk '{print $3}')
 GROUPOWNERSHIP=$(ls -ld /groots | awk '{print $4}')
@@ -179,6 +188,7 @@ else
 	      Directory groupownership for  "/groots" is set - $GROUPOWNERSHIP" | log 
 	exit 3
 fi
+
 }
 
 # Get ip address from system.
