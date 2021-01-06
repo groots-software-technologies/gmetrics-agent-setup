@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 # Gmetrics Agent Installation in single command
 
 ## Summary
 By using this agent installation script, you will be able to install the gmetrics-agent on remote host with single command. Through this agent perf data will sync with gmetrics-core
+=======
+# Gmetrics Agent Installation
+
+## Summary
+By using this agent installation script, you will install the gmetrics-agent. Through this agent perf data will sync with gmetrics-core
+>>>>>>> 569800d0506f86470f6708853b39c097b80bb1a0
 
 ## Gmetrics-agent script flow - 
 - Check OS background & start installation
@@ -20,6 +27,7 @@ By using this agent installation script, you will be able to install the gmetric
 - Test gmetrics-agent connectivity
 - Clean /groots/tmp directory
 
+<<<<<<< HEAD
 # Setup
 ### Verify
 
@@ -48,6 +56,31 @@ $ apt-get install git -y
 
 ```
 - For centos8, following pre-requisites packages are required: 
+=======
+## Verify
+
+1. Verify if svn and git package present or not on remote server
+
+$ svn --version 
+
+$ git --version 
+
+2. if packages are not present then install using 
+
+- Centos:
+
+$ yum install subversion -y  
+
+$ yum install git -y 
+
+- Ubuntu:
+
+$ apt-get install subversion -y 
+
+$ apt-get install git -y 
+
+- For centos8, following packages are required: 
+>>>>>>> 569800d0506f86470f6708853b39c097b80bb1a0
 
 $ yum install -y gcc glibc glibc-common make gettext automake autoconf wget openssl-devel net-snmp net-snmp-utils epel-release
 
@@ -58,13 +91,19 @@ $ yum install compat-openssl10 libnsl.so.1 -y
 $ dnf install libnsl -y
 
 $ yum install https://download-ib01.fedoraproject.org/pub/epel/8/Everything/x86_64/Packages/t/tcp_wrappers-libs-7.6-96.el8.x86_64.rpm
+<<<<<<< HEAD
 ```
 
 # Execute 
+=======
+
+
+>>>>>>> 569800d0506f86470f6708853b39c097b80bb1a0
 ## Gmetrics agent installation on remote server
 
 $ cd /root
 
+<<<<<<< HEAD
 #### For branch : 
 ```
 $ echo "branches/<branch>" | bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/<branch>/v5/bin/gmetrics_agent_setup.sh)
@@ -79,6 +118,14 @@ Ex:
 $ echo "branches/alpha" | bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/alpha/v5/bin/gmetrics_agent_setup.sh)
 ```
 ```
+=======
+$ echo "branches/[branch]" | bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/[branch]/v5/bin/gmetrics_agent_setup.sh)
+ 
+Ex:
+ 
+$ echo "branches/alpha" | bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/alpha/v5/bin/gmetrics_agent_setup.sh)
+
+>>>>>>> 569800d0506f86470f6708853b39c097b80bb1a0
 - Check & verify service log file
 
 $ tail -f /var/log/groots/metrics/gmetrics-agent.log
@@ -86,9 +133,15 @@ $ tail -f /var/log/groots/metrics/gmetrics-agent.log
 - To check installation script log, refer
 
 $ tail -f /var/log/groots/metrics/gmetrics_agent_setup.sh.log
+<<<<<<< HEAD
 ```
 ## Testing
 ```
+=======
+
+## Testing
+
+>>>>>>> 569800d0506f86470f6708853b39c097b80bb1a0
 - Verify gmetrics agent service status
 
 $ systemctl enable gmetrics-agent
@@ -114,11 +167,18 @@ $ telnet <REMOTE AGENT IP/HOSTNAME> 5666
 $ sudo /groots/metrics/libexec/check_metrics -H 127.0.0.1
 
 $ sudo /groots/metrics/libexec/check_metrics -H <IP> -c check_users -a '-w 5 -c 8'
+<<<<<<< HEAD
 ```
 
 ## Error
 - If you get following error after agent installation, perform the below task.
 ```
+=======
+
+
+## Error
+- If you get following error after agent installation, perform the below task.
+>>>>>>> 569800d0506f86470f6708853b39c097b80bb1a0
 
 -ERROR 
 "Is there a typo in the command or service configuration?: sudo: sorry, you must have a tty to run sudo"
@@ -128,6 +188,7 @@ $ sudo /groots/metrics/libexec/check_metrics -H <IP> -c check_users -a '-w 5 -c 
 $ cp -av /etc/sudoers /etc/sudoers\_\<DATE\>
 
 $ sed -i -e 's/Defaults    requiretty.*/#Defaults    requiretty/g' /etc/sudoers
+<<<<<<< HEAD
 ```
 # Gmetrics Agent Uninstallation
 
@@ -157,3 +218,16 @@ Ex:
 ```
 $ bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/alpha/v5/bin/gmetrics_agent_uninstall.sh)
 ```
+=======
+
+### Gmetrics Agent Uninstallation.
+Execute following command to remove gmetrics agent from your server.
+
+$ bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/alpha/v5/bin/gmetrics_agent_uninstall.sh)
+
+Ex: 
+
+$ bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/alpha/v5/bin/gmetrics_agent_uninstall.sh)
+
+
+>>>>>>> 569800d0506f86470f6708853b39c097b80bb1a0
