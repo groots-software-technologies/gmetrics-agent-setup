@@ -71,7 +71,7 @@ $ echo "branches/<branch>" | bash <(curl -Ls https://raw.githubusercontent.com/g
 ```
 #### For Main : 
 ```
-$ echo "trunk" | bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/main/v5/bin/gmetrics_agent_setup.sh)
+$ echo "trunk" | bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/master/v5/bin/gmetrics_agent_setup.sh)
 ```
 
 Ex:
@@ -151,7 +151,7 @@ $ bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-s
 ```
 - For master
 ```
-$ bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/main/v5/bin/gmetrics_agent_uninstall.sh)
+$ bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/master/v5/bin/gmetrics_agent_uninstall.sh)
 ```
 Ex: 
 ```
