@@ -15,7 +15,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-set
 ### To run and execute plugin addition script
 - For Master
 ```
-$ bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/main/v5/bin/gmetrics_agent_plugin_add.sh) -p (pluginname)
+$ bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/master/v5/bin/gmetrics_agent_plugin_add.sh) -p (pluginname)
 ```
 - For Branch
 ```
