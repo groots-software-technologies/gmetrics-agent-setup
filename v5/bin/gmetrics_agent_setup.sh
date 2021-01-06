@@ -188,10 +188,7 @@ else
 	      Directory groupownership for  "/groots" is set - $GROUPOWNERSHIP" | log 
 	exit 3
 fi
-<<<<<<< HEAD
 
-=======
->>>>>>> 569800d0506f86470f6708853b39c097b80bb1a0
 }
 
 # Get ip address from system.
