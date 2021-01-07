@@ -21,8 +21,9 @@ SCRIPTNAME="gmetrics_agent_setup.sh"
 
 # type command is checking whether svn, sar command present or not.
 #######################################################
-type svn >/dev/null 2>&1 || { echo >&2 "This plugin require "subversion" package, but it's not installed. Aborting."; exit 1; }
-type sar >/dev/null 2>&1 || { echo >&2 "This plugin require "sysstat" package, but it's not installed. Aborting."; exit 1; }
+type svn >/dev/null 2>&1 || { echo >&2 "This plugin require \"subversion\" package, but it's not installed. Aborting."; exit 1; }
+type sar >/dev/null 2>&1 || { echo >&2 "This plugin require \"sysstat\" package, but it's not installed. Aborting."; exit 1; }
+type netstat >/dev/null 2>&1 || { echo >&2 "This plugin require \"net-tools\" package, but it's not installed. Aborting."; exit 1; }
 
 # Import Hostname
 #######################################################
@@ -30,7 +31,7 @@ HOSTNAME=$(hostname)
 
 # Logfile
 #######################################################
-LOGDIR=/var/log/groots/metrics/
+LOGDIR=/var/log/groots/gmetrics/
 LOGFILE=$LOGDIR/"$SCRIPTNAME".log
 if [ ! -d $LOGDIR ]
 then
@@ -134,15 +135,14 @@ echo "Gmetrics plugin \"$PLUGINSDIR\" directory successfully created" | log
 
 echo "#######################################################" | log
 echo "Downloading Agent builds under $PLUGINSDIR directory" | log
-
+echo -e -n "Enter branch name (Default master): "
 read BRANCH
 
 if [ $BRANCH != "" ]
 then
 	BRANCH=$BRANCH
 else
-	echo "Please enter valid branch name" | log
-	exit 3
+	BRANCH=master
 fi
 
 URL="https://github.com/grootsadmin/gmetrics-agent-setup/$BRANCH/v5/builds"
@@ -542,7 +542,6 @@ if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ] || [ "$OS_VERSION" = "8" 
 		done
 
 	fi
-
 
 	# Check Selinux mode
 	verify_selinux 
