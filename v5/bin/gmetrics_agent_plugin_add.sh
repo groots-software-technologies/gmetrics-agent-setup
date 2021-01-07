@@ -25,7 +25,7 @@ HOSTNAME=$(hostname)
 
 # Logfile
 #######################################################
-LOGDIR=/var/log/groots/metrics/
+LOGDIR=/var/log/groots/gmetrics/
 LOGFILE=$LOGDIR/"$SCRIPTNAME".log
 if [ ! -d $LOGDIR ]
 then
@@ -116,11 +116,11 @@ fi
 ######################################################
 
 echo "#######################################################" | log
-echo "Enter git username:" | log
+echo -e -n "Enter git username: "
 read USERNAME
 
 echo "#######################################################" | log
-echo "Enter git Password:" | log
+echo -e -n "Enter git Password: "
 read -s PASSWORD
 
 for item in ${list[@]}; 
