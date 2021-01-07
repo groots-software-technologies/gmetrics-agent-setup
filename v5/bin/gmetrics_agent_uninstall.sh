@@ -28,7 +28,7 @@ HOSTNAME=$(hostname)
 # Logfile
 #######################################################
 
-LOGDIR=/var/log/groots/metrics/
+LOGDIR=/var/log/groots/gmetrics/
 LOGFILE=$LOGDIR/"$SCRIPTNAME".log
 if [ ! -d $LOGDIR ]
 then
