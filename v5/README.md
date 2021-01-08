@@ -81,11 +81,11 @@ $ echo "branches/alpha" | bash <(curl -Ls https://raw.githubusercontent.com/groo
 ```
 - Check & verify service log file
 
-$ tail -f /var/log/groots/metrics/gmetrics-agent.log
+$ tail -f /var/log/groots/gmetrics/gmetrics-agent.log
 
 - To check installation script log, refer
 
-$ tail -f /var/log/groots/metrics/gmetrics_agent_setup.sh.log
+$ tail -f /var/log/groots/gmetrics/gmetrics_agent_setup.sh.log
 ```
 ## Testing
 ```
