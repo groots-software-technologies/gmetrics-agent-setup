@@ -157,3 +157,7 @@ Ex:
 ```
 $ bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/alpha/v5/bin/gmetrics_agent_uninstall.sh)
 ```
+
+### Refer log file 
+
+$ less /var/log/groots/gmetrics/gmetrics_agent_uninstall.sh.log
