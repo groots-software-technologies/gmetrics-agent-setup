@@ -139,7 +139,7 @@ To clean up gmetrics agent from the installed server.
 
 - For master
 ```
-$ bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/main/v5/bin/gmetrics_agent_uninstall.sh)
+$ bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/master/v5/bin/gmetrics_agent_uninstall.sh)
 ```
 
 ```
