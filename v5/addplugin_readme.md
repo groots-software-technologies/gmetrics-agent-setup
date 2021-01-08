@@ -23,4 +23,4 @@ $ bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-s
 
 ### Refer log 
 
-cat /var/log/groots/metrics/gmetrics_agent_plugin_add.sh.log 
+cat /var/log/groots/gmetrics/gmetrics_agent_plugin_add.sh.log 
