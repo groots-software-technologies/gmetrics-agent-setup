@@ -1,4 +1,4 @@
-# Gmetrics Agent Installation in single command
+# Gmetrics Agent Installation on remote server using single command
 
 ## Summary
 By using this agent installation script, you will be able to install the gmetrics-agent on remote host with single command. Through this agent perf data will sync with gmetrics-core
@@ -20,7 +20,7 @@ By using this agent installation script, you will be able to install the gmetric
 - Test gmetrics-agent connectivity
 - Clean /groots/tmp directory
 
-# Setup
+## Setup
 ### Verify
 
 1. Verify if svn and git package present or not on remote server
@@ -60,32 +60,24 @@ $ dnf install libnsl -y
 $ yum install https://download-ib01.fedoraproject.org/pub/epel/8/Everything/x86_64/Packages/t/tcp_wrappers-libs-7.6-96.el8.x86_64.rpm
 ```
 
-# Execute 
-## Gmetrics agent installation on remote server
+## Execute 
+### Gmetrics agent installation on remote server
 
 $ cd /root
 
-#### For branch : 
-```
-$ echo "branches/<branch>" | bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/<branch>/v5/bin/gmetrics_agent_setup.sh)
-```
+
 #### For Main : 
 ```
 $ echo "trunk" | bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/main/v5/bin/gmetrics_agent_setup.sh)
 ```
-
-Ex:
- ```
-$ echo "branches/alpha" | bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/alpha/v5/bin/gmetrics_agent_setup.sh)
-```
 ```
 - Check & verify service log file
 
-$ tail -f /var/log/groots/metrics/gmetrics-agent.log
+$ tail -f /var/log/groots/gmetrics/gmetrics-agent.log
 
-- To check installation script log, refer
+- To check gmetrics agent installation script log, refer
 
-$ tail -f /var/log/groots/metrics/gmetrics_agent_setup.sh.log
+$ tail -f /var/log/groots/gmetrics/gmetrics_agent_setup.sh.log
 ```
 ## Testing
 ```
@@ -145,15 +137,13 @@ To clean up gmetrics agent from the installed server.
 
 ### Execute following command to remove gmetrics agent from your server.
 
-- For branches
-```
-$ bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/<branch>/v5/bin/gmetrics_agent_uninstall.sh)
-```
 - For master
 ```
 $ bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/main/v5/bin/gmetrics_agent_uninstall.sh)
 ```
-Ex: 
+
 ```
-$ bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/alpha/v5/bin/gmetrics_agent_uninstall.sh)
+- To check gmetrics agent uninstallation script log, refer
+
+$ tail -f /var/log/groots/gmetrics/gmetrics_agent_uninstall.sh.log
 ```
