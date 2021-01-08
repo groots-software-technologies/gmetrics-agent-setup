@@ -17,7 +17,7 @@
 
 #Set script name
 #######################################################
-SCRIPTNAME="addplugin.sh"
+SCRIPTNAME="gmetrics_agent_plugin_add.sh"
 
 # Import Hostname
 #######################################################
