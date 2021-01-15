@@ -68,7 +68,6 @@ fi
 REMOTEPACKAGE_RHEL_CENTOS="gmetrics-agent-el7-V5.02.12.2020.tar.gz"
 REMOTEPACKAGE_UBUNTU="gmetrics-agent-deb-V5.27.11.2020.tar.gz"
 REMOTEPACKAGE_RHEL_CENTOS8="gmetrics-agent-el8-V5.30.11.2020.tar.gz"
-REMOTEPACKAGE_AMAZONLINUX="gmetrics-agent-al2-V5.15.01.2021.tar.gz"
 
 # Finding installed operating system details.
 #######################################################
@@ -246,7 +245,7 @@ fi
 gmetrics_agent_centos7_untarzipfile () {
 
 echo "#######################################################" | log
-echo "Gmetrics agent tarball extracting for $OSNAME" | log
+echo "Gmetrics agent tarball extracting." | log
 tar -tvf $PLUGINSDIR/$REMOTEPACKAGE_RHEL_CENTOS | log
 echo "#######################################################" | log
 tar -pxvf $PLUGINSDIR/$REMOTEPACKAGE_RHEL_CENTOS -C /  | log
@@ -260,25 +259,6 @@ echo "#######################################################" | log
 ls -ltrh /groots/metrics/ | log
 }
 
-# Extracting Amazon linux tar
-#######################################################
-
-gmetrics_agent_amazon_linux_untarzipfile () {
-
-echo "#######################################################" | log
-echo "Gmetrics agent tarball extracting for $OSNAME linux" | log
-tar -tvf $PLUGINSDIR/$REMOTEPACKAGE_AMAZONLINUX | log
-echo "#######################################################" | log
-tar -pxvf $PLUGINSDIR/$REMOTEPACKAGE_AMAZONLINUX -C /  | log
-echo "#######################################################" | log
-echo "Gmetrics build successfully extracted." | log
-echo "#######################################################" | log
-echo "Updating ownership of gmetrics-agent config directory"   | log
-chown -R groots. /groots/metrics/  | log
-echo "Verify gmetrics-agent config directory ownership." | log
-echo "#######################################################" | log
-ls -ltrh /groots/metrics/ | log
-}
 
 # Extracting gmetrics-remote tar file.
 #######################################################
@@ -286,7 +266,7 @@ ls -ltrh /groots/metrics/ | log
 gmetrics_agent_centos8_untarzipfile () {
 
 echo "#######################################################" | log
-echo "Gmetrics agent tarball extracting for $OSNAME" | log
+echo "Gmetrics agent tarball extracting." | log
 tar -tvf $PLUGINSDIR/$REMOTEPACKAGE_RHEL_CENTOS8 | log
 echo "#######################################################" | log
 tar -pxvf $PLUGINSDIR/$REMOTEPACKAGE_RHEL_CENTOS8 -C /  | log
@@ -535,14 +515,14 @@ check_user
 #######################################################
 gmetrics_agent_os_details
 
-if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ] || [ "$OS_VERSION" = "8" ] || [ "$OSNAME" = "Amazon" ]; then
+if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ] || [ "$OS_VERSION" = "8" ]; then
 
 	echo "#######################################################" | log
         echo "Gmetrics agent installtion starting at [`date`]." | log
 
-        if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ] || [ "$OSNAME" = "Amazon" ]; then
+        if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ]; then
                 echo "#######################################################" | log
-                echo "Verifying if following packages are present or not for $OSNAME linux." | log
+                echo "Verifying if following packages are present or not for Centos7.." | log
                 echo "sysstat gcc glibc glibc-common gd gd-devel make net-snmp openssl-devel bind-utils net-snmp-devel net-snmp-utils net-snmp-perl" | tr ' ' '\n' | while read line; do rpm -qa -last | grep -i $line; done | log
                 echo "openssl" | tr ' ' '\n'  | while read line; do rpm -qa -last | grep -i $line; done | log
                 echo "#######################################################" | log
@@ -589,9 +569,6 @@ if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ] || [ "$OS_VERSION" = "8" 
 
 	elif [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ]; then
 	gmetrics_agent_centos7_untarzipfile
-
-	elif [ "$OSNAME" = "Amazon" ]; then
-	gmetrics_agent_amazon_linux_untarzipfile
 
 	fi
 
