@@ -224,19 +224,19 @@ chmod u+s /bin/ping6 | log
 verify_log_path_permission () {
 
 echo "#######################################################" | log
-echo "Verifying Permission and ownership of "/var/log/groots/metrics" directory " | log
+echo "Verifying Permission and ownership of "/var/log/groots/gmetrics" directory " | log
 
-LOGUSEROWNERSHIP=$(ls -ld /var/log/groots/metrics | awk '{print $3}')
-LOGGROUPOWNERSHIP=$(ls -ld /var/log/groots/metrics | awk '{print $4}')
+LOGUSEROWNERSHIP=$(ls -ld /var/log/groots/gmetrics | awk '{print $3}')
+LOGGROUPOWNERSHIP=$(ls -ld /var/log/groots/gmetrics | awk '{print $4}')
 
 if  [ "$LOGUSEROWNERSHIP" = "groots" ] && [ "$LOGGROUPOWNERSHIP" = "groots" ]
 then
         echo "########################################################" | log
-        echo "Permission verified for /var/log/groots/metrics directory is groots" | log
+        echo "Permission verified for /var/log/groots/gmetrics directory is groots" | log
 else
-        chown -R groots. /var/log/groots/metrics/
+        chown -R groots. /var/log/groots/gmetrics/
         echo "########################################################" | log
-        echo "Ownership for /var/log/groots/metrics/ is changed to groots" | log
+        echo "Ownership for /var/log/groots/gmetrics/ is changed to groots" | log
 fi
 }
 
@@ -676,7 +676,7 @@ rm -rf /groots/tmp/* > /dev/null
 
 echo "
 NOTE : If gmetrics-agent installation does not started then check installation log file [$LOGFILE]
-       And gmetrics-agent service log file [/var/log/groots/metrics/gmetrics-agent.log]
+       And gmetrics-agent service log file [$LOGDIR/gmetrics-agent.log]
        Or your system log file.
 " | log
 
