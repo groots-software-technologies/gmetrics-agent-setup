@@ -2,25 +2,31 @@
 
 ## Summary
 
-This copies gmetrics plugins from git gmetrics-plugin main repo to remote server's /groots/metrics/libexec directory. Following is the list of plugins available to copy from list below -
+This copies gmetrics plugins from git gmetrics-plugin main repo to remote host's /groots/metrics/libexec directory. Following is the list of plugins available to copy-
+list=("sms" "appsensors" "aws" "backup" "dns" "docker" "elk" "expiry" "hardware" "lamp" "mithi" "os" "website" "jvm" "node" "jenkins")
 
-**list=("sms" "appsensors" "aws" "backup" "dns" "docker" "elk" "expiry" "hardware" "lamp" "mithi" "os" "website" "jvm" "node" "jenkins")**
 
+# Execution 
 
-## Execution 
-
-### Help Usage & get plugins list
+#### Help Usage & get plugin list
 ```
-bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/master/v5/bin/gmetrics_agent_plugin_add.sh) -h 
+bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/[branch]/v5/bin/gmetrics_agent_plugin_add.sh) -h 
 ```
 ### To run and execute plugin addition script
-
 - For Master
 ```
 $ bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/master/v5/bin/gmetrics_agent_plugin_add.sh) -p (pluginname)
 ```
-- Mentioned plugin name will get copied to /groots/metrics/libexec directory after successfully execution of script. Commands for these plugins will be pre mentioned in /groots/metrics/config/gmetrics-agent.cfg. On Gmetrics core add service templates for the same plugin under `/groots/metrics/config/etc/servers/<HOSTNAME>/`
+- For Branch
+```
+$ bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/[branch]/v5/bin/gmetrics_agent_plugin_add.sh) -p (pluginname)
+```
+Ex:
+```
+$ bash <(curl -Ls https://raw.githubusercontent.com/grootsadmin/gmetrics-agent-setup/alpha/v5/bin/gmetrics_agent_plugin_add.sh) -p (pluginname)
+```
+- Plugins will get copied to /groots/metrics/libexec directory
 
-### Refer log 
+### Refer log
 
-cat /var/log/groots/gmetrics/gmetrics_agent_plugin_add.sh.log 
+cat /var/log/groots/metrics/gmetrics_agent_plugin_add.sh.log 
