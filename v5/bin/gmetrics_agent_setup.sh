@@ -140,7 +140,7 @@ echo "#######################################################" | log
 echo "Downloading Agent builds under $PLUGINSDIR directory" | log
 URL="https://github.com/grootsadmin/gmetrics-agent-setup/trunk/v5/builds"
 svn checkout $URL $PLUGINSDIR > /dev/null &  PID=$!
-echo "THIS PROCESS TAKE SOME TIME, SO PLEASE BE PATIENCE WHILE GMETRICS AGENT INSTALLATION IS RUNNING..." | log
+echo "THIS PROCESS TAKES SOME TIME, SO PLEASE BE PATIENCE WHILE GMETRICS AGENT INSTALLATION IS RUNNING..." | log
 printf "["
 while kill -0 $PID 2> /dev/null; do
     printf  "....++...."
