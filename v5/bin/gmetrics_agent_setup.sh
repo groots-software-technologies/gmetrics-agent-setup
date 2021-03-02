@@ -26,6 +26,7 @@ SCRIPTNAME="gmetrics_agent_setup.sh"
 type svn >/dev/null 2>&1 || { echo >&2 "This plugin require \"subversion\" package, but it's not installed. Aborting."; exit 1; }
 type sar >/dev/null 2>&1 || { echo >&2 "This plugin require \"sysstat\" package, but it's not installed. Aborting."; exit 1; }
 type netstat >/dev/null 2>&1 || { echo >&2 "This plugin require \"net-tools\" package, but it's not installed. Aborting."; exit 1; }
+type dig >/dev/null 2>&1 || { echo >&2 "This plugin require \"bind-utils\" package for RHEL/CentOs/SUSE/Amazon Linux and \"dnsutils\" for Ubunutu, but it's not installed. Aborting."; exit 1; }
 
 # Import Hostname
 #######################################################
