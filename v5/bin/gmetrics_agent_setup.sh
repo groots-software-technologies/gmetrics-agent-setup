@@ -1,15 +1,17 @@
 #!/bin/bash
 #######################################################
-# Program: Gmetrics Agent installation.
+# Program: Gmetrics monitoring plugins listing.
 #
 # Purpose:
-#  This script installing gmetrics-agent on the remote system,
+#  Check server health and process using gmetrics plugins.
 #  can be run in interactive.
 #
 # License:
 #  This program is distributed in the hope that it will be useful,
 #  but under groots software technologies @rights.
 #
+# Author: Groots Metrics Team
+# Email : support@groots.in
 #######################################################
 
 # Check for people who need help - aren't we all nice ;-)
@@ -136,20 +138,10 @@ echo "Gmetrics plugin \"$PLUGINSDIR\" directory successfully created" | log
 
 echo "#######################################################" | log
 echo "Downloading Agent builds under $PLUGINSDIR directory" | log
-echo -e -n "Enter branch name (Default master): "
-read BRANCH
-
-if [ $BRANCH != "" ]
-then
-	BRANCH=$BRANCH
-else
-	BRANCH=master
-fi
-
-URL="https://github.com/grootsadmin/gmetrics-agent-setup/$BRANCH/v5/builds"
+URL="https://github.com/grootsadmin/gmetrics-agent-setup/master/v5/builds"
 svn checkout $URL $PLUGINSDIR | log
 echo "#######################################################" | log
-ls $PLUGINSDIR*.gz  > /dev/null 2>&1  || { echo "Builds have been not downloaded under $PLUGINSDIR. Exiting.." | log ; exit 1; }
+ls $PLUGINSDIR*.gz  > /dev/null 2>&1  || { echo "Gmetrics Remote Agent For Linux is not installed." | log ; exit 3; }
 echo "#######################################################" | log
 echo "Downloading builds under $PLUGINSDIR directory completed!!!" | log
 }
