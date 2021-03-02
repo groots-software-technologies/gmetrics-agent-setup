@@ -140,14 +140,13 @@ echo "#######################################################" | log
 echo "Downloading Agent builds under $PLUGINSDIR directory" | log
 URL="https://github.com/grootsadmin/gmetrics-agent-setup/trunk/v5/builds"
 svn checkout $URL $PLUGINSDIR > /dev/null &  PID=$!
-echo "THIS MAY TAKE A WHILE, PLEASE BE PATIENT WHILE GMETRICS AGENT INSTALLATION IS RUNNING..."
+echo "THIS PROCESS TAKE SOME TIME, SO PLEASE BE PATIENCE WHILE GMETRICS AGENT INSTALLATION IS RUNNING..." | log
 printf "["
 while kill -0 $PID 2> /dev/null; do
-    printf  "########"
+    printf  "....++...."
     sleep 1
 done
-printf "] 100% \n"
-
+printf "] Downloading completed. \n" | log
 echo "#######################################################" | log
 ls $PLUGINSDIR*.gz  > /dev/null 2>&1  || { echo "Gmetrics Remote Agent For Linux is not installed." | log ; exit 3; }
 echo "#######################################################" | log
