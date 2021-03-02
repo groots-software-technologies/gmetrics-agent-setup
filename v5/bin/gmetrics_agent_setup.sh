@@ -680,5 +680,19 @@ NOTE : If gmetrics-agent installation does not started then check installation l
        Or your system log file.
 " | log
 
+# Server information to monitor this hosts.
+LINUX_SERVER_IP=`dig +short myip.opendns.com @resolver1.opendns.com`
+OFFICIAL_EMAILID="john@example.com"
+ORGANIZATION_NAME="Groots Software Techonologies"
+echo "Copy following content and sent it to \"support@groots.in\" email address"
+echo "
+Server Public IP: $LINUX_SERVER_IP
+Monitoring Hostname: $HOSTNAME
+Official Email-id: $OFFICIAL_EMAILID
+Organization Name: $ORGANIZATION_NAME
+" | tee -a $LOGFILE
+
+echo "Open monitoring port \"5666\" on your firewall for \"3.7.198.168\" to start monitoring in gmetrics"
+
 # End Main Logic.
 #######################################################
