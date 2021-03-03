@@ -1,15 +1,17 @@
 #!/bin/bash
 #######################################################
-# Program: Gmetrics Agent installation.
+# Program: Gmetrics monitoring plugins listing.
 #
 # Purpose:
-#  This script installing gmetrics-agent on the remote system,
+#  Check server health and process using gmetrics plugins.
 #  can be run in interactive.
 #
 # License:
 #  This program is distributed in the hope that it will be useful,
 #  but under groots software technologies @rights.
 #
+# Author: Groots Metrics Team
+# Email : support@groots.in
 #######################################################
 
 # Check for people who need help - aren't we all nice ;-)
@@ -24,6 +26,7 @@ SCRIPTNAME="gmetrics_agent_setup.sh"
 type svn >/dev/null 2>&1 || { echo >&2 "This plugin require \"subversion\" package, but it's not installed. Aborting."; exit 1; }
 type sar >/dev/null 2>&1 || { echo >&2 "This plugin require \"sysstat\" package, but it's not installed. Aborting."; exit 1; }
 type netstat >/dev/null 2>&1 || { echo >&2 "This plugin require \"net-tools\" package, but it's not installed. Aborting."; exit 1; }
+type dig >/dev/null 2>&1 || { echo >&2 "This plugin require \"bind-utils\" package for RHEL/CentOs/SUSE/Amazon Linux and \"dnsutils\" for Ubunutu, but it's not installed. Aborting."; exit 1; }
 
 # Import Hostname
 #######################################################
@@ -136,20 +139,17 @@ echo "Gmetrics plugin \"$PLUGINSDIR\" directory successfully created" | log
 
 echo "#######################################################" | log
 echo "Downloading Agent builds under $PLUGINSDIR directory" | log
-echo -e -n "Enter branch name (Default master): "
-read BRANCH
-
-if [ $BRANCH != "" ]
-then
-	BRANCH=$BRANCH
-else
-	BRANCH=master
-fi
-
-URL="https://github.com/grootsadmin/gmetrics-agent-setup/$BRANCH/v5/builds"
-svn checkout $URL $PLUGINSDIR | log
+URL="https://github.com/grootsadmin/gmetrics-agent-setup/trunk/v5/builds"
+svn checkout $URL $PLUGINSDIR > /dev/null &  PID=$!
+echo "THIS PROCESS TAKES SOME TIME, SO PLEASE BE PATIENCE WHILE GMETRICS AGENT INSTALLATION IS RUNNING..." | log
+printf "["
+while kill -0 $PID 2> /dev/null; do
+    printf  "....++...."
+    sleep 1
+done
+printf "] Downloading completed. \n" | log
 echo "#######################################################" | log
-ls $PLUGINSDIR*.gz  > /dev/null 2>&1  || { echo "Builds have been not downloaded under $PLUGINSDIR. Exiting.." | log ; exit 1; }
+ls $PLUGINSDIR*.gz  > /dev/null 2>&1  || { echo "Gmetrics Remote Agent For Linux is not installed." | log ; exit 3; }
 echo "#######################################################" | log
 echo "Downloading builds under $PLUGINSDIR directory completed!!!" | log
 }
@@ -679,6 +679,20 @@ NOTE : If gmetrics-agent installation does not started then check installation l
        And gmetrics-agent service log file [$LOGDIR/gmetrics-agent.log]
        Or your system log file.
 " | log
+
+# Server information to monitor this hosts.
+LINUX_SERVER_IP=`dig +short myip.opendns.com @resolver1.opendns.com`
+OFFICIAL_EMAILID="john@example.com"
+ORGANIZATION_NAME="Groots Software Techonologies"
+echo "Copy following content and sent it to \"support@groots.in\" email address"
+echo "
+Server Public IP: $LINUX_SERVER_IP
+Monitoring Hostname: $HOSTNAME
+Official Email-id: $OFFICIAL_EMAILID
+Organization Name: $ORGANIZATION_NAME
+" | tee -a $LOGFILE
+
+echo "Open monitoring port \"5666\" on your firewall for \"3.7.198.168\" to start monitoring in gmetrics"
 
 # End Main Logic.
 #######################################################
