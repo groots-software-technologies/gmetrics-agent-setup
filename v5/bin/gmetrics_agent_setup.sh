@@ -683,7 +683,7 @@ NOTE : If gmetrics-agent installation does not started then check installation l
 # Server information to monitor this hosts.
 LINUX_SERVER_IP=`dig +short myip.opendns.com @resolver1.opendns.com`
 OFFICIAL_EMAILID="john@example.com"
-ORGANIZATION_NAME="Groots Software Techonologies"
+ORGANIZATION_NAME="Groots Software Technologies Pvt Ltd."
 echo "Copy following content and sent it to \"support@groots.in\" email address" | tee -a $LOGFILE
 echo "
 Server Public IP: $LINUX_SERVER_IP
