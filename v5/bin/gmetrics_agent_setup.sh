@@ -147,8 +147,8 @@ while kill -0 $PID 2> /dev/null; do
     printf  "....++...."
     sleep 1
 done
-printf "] Downloading completed. \n" | log
-echo "#######################################################" | log
+printf "]"
+printf "Downloading completed. \n" | log
 ls $PLUGINSDIR*.gz  > /dev/null 2>&1  || { echo "Gmetrics Remote Agent For Linux is not installed." | log ; exit 3; }
 echo "#######################################################" | log
 echo "Downloading builds under $PLUGINSDIR directory completed!!!" | log
@@ -344,7 +344,7 @@ gmetrics_agent_sudoers_entry () {
 
 echo "#######################################################" | log
 echo "Gmetrics agent user entry add in sudoes file to execute plugin." | log
-locate pkexec >/dev/null && { pkexec chmod 0440 /etc/sudoers | log;} || sudo chmod 0440 /etc/sudoers 
+type pkexec > /dev/null 2>&1 && { pkexec chmod 0440 /etc/sudoers | log;} || sudo chmod 0440 /etc/sudoers 
 echo 'Defaults:groots    !requiretty' > /etc/sudoers.d/gmetrics-agent
 echo "groots          ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers.d/gmetrics-agent
 echo "Gmetrics agent user entry successfully added in sudoers file." | log
@@ -684,15 +684,15 @@ NOTE : If gmetrics-agent installation does not started then check installation l
 LINUX_SERVER_IP=`dig +short myip.opendns.com @resolver1.opendns.com`
 OFFICIAL_EMAILID="john@example.com"
 ORGANIZATION_NAME="Groots Software Techonologies"
-echo "Copy following content and sent it to \"support@groots.in\" email address"
+echo "Copy following content and sent it to \"support@groots.in\" email address" | tee -a $LOGFILE
 echo "
 Server Public IP: $LINUX_SERVER_IP
 Monitoring Hostname: $HOSTNAME
-Official Email-id: $OFFICIAL_EMAILID
-Organization Name: $ORGANIZATION_NAME
+Official Email-id: $OFFICIAL_EMAILID               # Replace given email id with your email id
+Organization Name: $ORGANIZATION_NAME              # Replace given organization name with your organization name.
 " | tee -a $LOGFILE
 
-echo "Open monitoring port \"5666\" on your firewall for \"3.7.198.168\" to start monitoring in gmetrics"
+echo "Open monitoring port \"5666\" on your firewall for \"3.7.198.168\" to start monitoring in gmetrics" | tee -a $LOGFILE
 
 # End Main Logic.
 #######################################################
