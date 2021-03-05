@@ -134,7 +134,7 @@ do
 	#######################################################
 
 	SVNCMD="--non-interactive --no-auth-cache --username $USERNAME --password "$PASSWORD" $DEST"
-	GITPATH="svn checkout https://github.com/grootsadmin/gmetrics-plugins/trunk/os/linux"
+	GITPATH="svn checkout https://github.com/grootsadmin/gmetrics-agent-plugins/trunk/os/linux"
 	echo "#######################################################" | log
 	echo "Plugin "$PLUGINNAME" selected to add in \"$DEST\" " | log
 	$GITPATH/$PLUGINNAME $SVNCMD 2>/dev/null || { echo "Incorrect git credentials, Exiting now..." | log ; exit 1; }
