@@ -112,16 +112,8 @@ else
 	exit 1;
 fi
 
-# Collecting git username & password
-######################################################
-
-echo "#######################################################" | log
-echo -e -n "Enter git username: "
-read USERNAME
-
-echo "#######################################################" | log
-echo -e -n "Enter git Password: "
-read -s PASSWORD
+# For loop to iterate plugin names
+#######################################################
 
 for item in ${list[@]}; 
 do
@@ -133,7 +125,7 @@ do
 	# Command for svn & git master repo path
 	#######################################################
 
-	SVNCMD="--non-interactive --no-auth-cache --username $USERNAME --password "$PASSWORD" $DEST"
+	SVNCMD="--non-interactive --no-auth-cache  $DEST"
 	GITPATH="svn checkout https://github.com/grootsadmin/gmetrics-agent-plugins/trunk/os/linux"
 	echo "#######################################################" | log
 	echo "Plugin "$PLUGINNAME" selected to add in \"$DEST\" " | log
