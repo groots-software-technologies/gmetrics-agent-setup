@@ -72,6 +72,7 @@ REMOTEPACKAGE_RHEL_CENTOS="gmetrics-agent-el7-V5.02.12.2020.tar.gz"
 REMOTEPACKAGE_UBUNTU="gmetrics-agent-deb-V5.27.11.2020.tar.gz"
 REMOTEPACKAGE_RHEL_CENTOS8="gmetrics-agent-el8-V5.30.11.2020.tar.gz"
 REMOTEPACKAGE_AMAZONLINUX="gmetrics-agent-al2-V5.15.01.2021.tar.gz"
+REMOTEPACKAGE_SUSE="gmetrics-agent-suse12-V5.14.05.2021.tar.gz"
 
 # Finding installed operating system details.
 #######################################################
@@ -321,6 +322,26 @@ echo "#######################################################" | log
 ls -ltrh /groots/metrics/ | log
 }
 
+# Extracting gmetrics-agent tar file.
+#######################################################
+
+gmetrics_agent_suse_untarzipfile () {
+
+echo "#######################################################" | log
+echo "Gmetrics agent tarball extracting." | log
+tar -tvf  $PLUGINSDIR/$REMOTEPACKAGE_SUSE | log
+echo "#######################################################" | log
+tar -pxvf $PLUGINSDIR/$REMOTEPACKAGE_SUSE -C / | log
+echo "#######################################################" | log
+echo "Gmetrics build successfully extracted." | log
+echo "#######################################################" | log
+echo "Updating ownership of gmetrics-agent config directory"   | log
+chown -R groots. /groots/metrics/  | log
+echo "Verify gmetrics-agent plugin config directory ownership." | log
+echo "#######################################################" | log
+ls -ltrh /groots/metrics/ | log
+}
+
 # Gmetrics agent port entry add in /etc/services file.
 #######################################################
 
@@ -535,10 +556,10 @@ check_user
 #######################################################
 gmetrics_agent_os_details
 
-if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ] || [ "$OS_VERSION" = "8" ] || [ "$OSNAME" = "Amazon" ]; then
+if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ] || [ "$OS_VERSION" = "8" ] || [ "$OSNAME" = "Amazon" ] || [ "$OSNAME" = "SUSE" ]; then
 
-	echo "#######################################################" | log
-        echo "Gmetrics agent installtion starting at [`date`]." | log
+		echo "#######################################################" | log
+		echo "Gmetrics agent installtion starting at [`date`]." | log
 
         if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ] || [ "$OSNAME" = "Amazon" ]; then
                 echo "#######################################################" | log
@@ -560,6 +581,16 @@ if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ] || [ "$OS_VERSION" = "8" 
 		do
 			rpm -qa -last | grep -i $package || { echo >&2 "ERROR: $package package is not installed. Aborting.." | log ; exit 1; }
 		done
+		
+		if [ "$OSNAME" = "SUSE" ] && [ "$OS_VERSION" = "12" ]; then
+			 echo "#######################################################" | log
+			 echo "Verifying if following packages are present or not for $OSNAME linux. Installing required packages..." | log
+			 sudo SUSEConnect -p sle-module-web-scripting/12/x86_64
+			 sudo zypper --non-interactive install autoconf gcc glibc libmcrypt-devel make libopenssl-devel wget sysstat git 
+			 echo "#######################################################" | log 
+			 echo "Starting Sysstat tool for monitoring" | log 
+			 systemctl enable sysstat && systemctl start sysstat
+			 groupadd groots && usermod -g groots groots >/dev/null 
 
 	fi
 
@@ -592,7 +623,9 @@ if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ] || [ "$OS_VERSION" = "8" 
 
 	elif [ "$OSNAME" = "Amazon" ]; then
 	gmetrics_agent_amazon_linux_untarzipfile
-
+	
+	elif [ "$OSNAME" = "SUSE" ] && [ "$OS_VERSION" = "12" ]; then
+	gmetrics_agent_suse_untarzipfile
 	fi
 
         # Extracting gmetrics-agent tar file.
