@@ -581,19 +581,22 @@ if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ] || [ "$OS_VERSION" = "8" 
 		do
 			rpm -qa -last | grep -i $package || { echo >&2 "ERROR: $package package is not installed. Aborting.." | log ; exit 1; }
 		done
-		
-		if [ "$OSNAME" = "SUSE" ] && [ "$OS_VERSION" = "12" ]; then
-			 echo "#######################################################" | log
-			 echo "Verifying if following packages are present or not for $OSNAME linux. Installing required packages..." | log
-			 sudo SUSEConnect -p sle-module-web-scripting/12/x86_64
-			 sudo zypper --non-interactive install autoconf gcc glibc libmcrypt-devel make libopenssl-devel wget sysstat git 
-			 echo "#######################################################" | log 
-			 echo "Starting Sysstat tool for monitoring" | log 
-			 systemctl enable sysstat && systemctl start sysstat
-			 groupadd groots && usermod -g groots groots >/dev/null 
 
 	fi
 
+	if [ "$OSNAME" = "SUSE" ] && [ "$OS_VERSION" = "12" ]; then
+		 echo "#######################################################" | log
+		 echo "Verifying if following packages are present or not for $OSNAME linux. Installing required packages..." | log
+		 sudo SUSEConnect -p sle-module-web-scripting/12/x86_64
+		 sudo zypper --non-interactive install autoconf gcc glibc libmcrypt-devel make libopenssl-devel wget sysstat git 
+		 echo "#######################################################" | log 
+		 echo "Starting Sysstat tool for monitoring" | log 
+		 systemctl enable sysstat && systemctl start sysstat
+		 echo "#######################################################" | log 
+		 groupadd groots && usermod -g groots groots >/dev/null 
+
+	fi
+	
 	# Check Selinux mode
 	verify_selinux 
 
