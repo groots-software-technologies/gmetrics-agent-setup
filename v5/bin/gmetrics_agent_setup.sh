@@ -140,7 +140,7 @@ echo "Gmetrics plugin \"$PLUGINSDIR\" directory successfully created" | log
 
 echo "#######################################################" | log
 echo "Downloading Agent builds under $PLUGINSDIR directory" | log
-URL="https://github.com/grootsadmin/gmetrics-agent-setup/trunk/v5/builds"
+URL="https://github.com/grootsadmin/gmetrics-agent-setup/branches/alpha/v5/builds"
 svn checkout $URL $PLUGINSDIR > /dev/null &  PID=$!
 echo "THIS PROCESS TAKES SOME TIME, SO PLEASE BE PATIENCE WHILE GMETRICS AGENT INSTALLATION IS RUNNING..." | log
 printf "["
@@ -200,7 +200,7 @@ gmetrics_agent_getipaddress () {
 
 echo "#######################################################" | log
 echo "IP address gathering from system" | log
-IPADDRESS="$(hostname -I | awk '{print $1}')"
+IPADDRESS=`ip route get 1.2.3.4 | awk '{print $7}' | head -n1`
 echo "System IP address is : $IPADDRESS" | log
 }
 
