@@ -632,7 +632,7 @@ if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ] || [ "$OS_VERSION" = "8" 
 	fi
 
         # Extracting gmetrics-agent tar file.
-        gmetrics_agent_centos7_untarzipfile
+        # gmetrics_agent_centos7_untarzipfile
 
         # Gmetrics agent port entry add in /etc/services file.
         gmetrics_agent_service_port_entry
