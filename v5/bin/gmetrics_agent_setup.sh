@@ -579,7 +579,7 @@ if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ] || [ "$OS_VERSION" = "8" 
 		list=("tcp_wrappers-libs-7.6-96.el8.x86_64" "compat-openssl10" "libnsl" "net-snmp-perl" "gcc" "glibc" "glibc-common" "make" "gettext" "automake" "autoconf" "wget" "openssl-devel" "net-snmp" "net-snmp-utils" "epel-release epel")
 		for package in ${list[@]}; 
 		do
-			rpm -qa -last | grep -i $package || { echo >&2 "ERROR: $package package is not installed. Aborting.." | log ; }
+			rpm -qa -last | grep -i $package || { echo >&2 "ERROR: $package package is not installed. Please install required packages!" | log ; }
 		done
 
 	fi
