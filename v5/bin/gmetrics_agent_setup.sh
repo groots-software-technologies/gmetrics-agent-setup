@@ -673,7 +673,8 @@ elif [ "$OSNAME" = "Ubuntu" ]; then
         echo "You need to install these os libraries packages on the server : telnet libgd-dev libmcrypt-dev libssl-dev dc snmp libnet-snmp-perl sysstat openssl vim dos2unix git" | log
 	echo "#######################################################" | log
 	echo "Installing required packages for Ubuntu" | log  
-	apt install -y sysstat gcc glibc glibc-common gd gd-devel make net-snmp openssl-devel bind-utils net-snmp-devel net-snmp-utils net-snmp-perl git subversion 
+	#apt install -y  gcc glibc glibc-common gd gd-devel make net-snmp openssl-devel bind-utils net-snmp-devel net-snmp-utils net-snmp-perl git subversion 
+	apt install -y autoconf sysstat automake gcc libc6 libmcrypt-dev make libssl-dev wget openssl bc gawk dc build-essential snmp libnet-snmp-perl gettext git subversion
 
         # Gmetrics agent user addition.
         gmetrics_agent_user_addition
