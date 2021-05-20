@@ -23,10 +23,10 @@ SCRIPTNAME="gmetrics_agent_setup.sh"
 
 # type command is checking whether svn, sar command present or not.
 #######################################################
-type svn >/dev/null 2>&1 || { echo >&2 "This plugin require \"subversion\" package, but it's not installed. Aborting."; exit 1; }
-type sar >/dev/null 2>&1 || { echo >&2 "This plugin require \"sysstat\" package, but it's not installed. Aborting."; exit 1; }
-type netstat >/dev/null 2>&1 || { echo >&2 "This plugin require \"net-tools\" package, but it's not installed. Aborting."; exit 1; }
-type dig >/dev/null 2>&1 || { echo >&2 "This plugin require \"bind-utils\" package for RHEL/CentOs/SUSE/Amazon Linux and \"dnsutils\" for Ubunutu, but it's not installed. Aborting."; exit 1; }
+type svn >/dev/null 2>&1 || { echo >&2 "This plugin require \"subversion\" package, but it's not installed. Aborting."; }
+type sar >/dev/null 2>&1 || { echo >&2 "This plugin require \"sysstat\" package, but it's not installed. Aborting.";  }
+type netstat >/dev/null 2>&1 || { echo >&2 "This plugin require \"net-tools\" package, but it's not installed. Aborting.";  }
+type dig >/dev/null 2>&1 || { echo >&2 "This plugin require \"bind-utils\" package for RHEL/CentOs/SUSE/Amazon Linux and \"dnsutils\" for Ubunutu, but it's not installed. Aborting."; }
 
 # Import Hostname
 #######################################################
@@ -573,7 +573,7 @@ if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ] || [ "$OS_VERSION" = "8" 
                 echo "Checking Installed gmetrics required packages." | log
                 echo "You need to install these os libraries packages on the server : sysstat telnet net-tools wget make bind-utils openssl openssl-devel mod_ssl lsof bc" | log
 		echo "#######################################################" | log
-		yum install -y sysstat gcc glibc glibc-common gd gd-devel make net-snmp openssl-devel bind-utils net-snmp-devel net-snmp-utils net-snmp-perl subversion git 
+		yum install -y sysstat net-tools bind-utils gcc glibc glibc-common gd gd-devel make net-snmp openssl-devel bind-utils net-snmp-devel net-snmp-utils net-snmp-perl subversion git 
 
         fi
 
@@ -583,7 +583,7 @@ if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ] || [ "$OS_VERSION" = "8" 
                 echo "Agent requires following packages on server: tcp_wrappers-libs-6.6-96.el8.x86_64.rpm compat-openssl10 libnsl.so.1 net-snmp-perl gcc glibc glibc-common make gettext automake autoconf wget openssl-devel net-snmp net-snmp-utils epel-release epel" | log
 		echo "#######################################################" | log
 		echo "Installing required packages for Centos 8 " | log 
-		yum install -y sysstat gcc glibc glibc-common gd gd-devel make net-snmp openssl-devel bind-utils net-snmp-devel net-snmp-utils net-snmp-perl git subversion  
+		yum install -y sysstat gcc net-tools glibc glibc-common gd gd-devel make net-snmp openssl-devel bind-utils net-snmp-devel net-snmp-utils net-snmp-perl git subversion  
 		yum install compat-openssl10 libnsl.so.1 -y 
 		yum install https://download-ib01.fedoraproject.org/pub/epel/8/Everything/x86_64/Packages/t/tcp_wrappers-libs-7.6-96.el8.x86_64.rpm -y  
 		list=("tcp_wrappers-libs-7.6-96.el8.x86_64" "compat-openssl10" "libnsl" "net-snmp-perl" "gcc" "glibc" "glibc-common" "make" "gettext" "automake" "autoconf" "wget" "openssl-devel" "net-snmp" "net-snmp-utils" "epel-release epel")
@@ -599,7 +599,7 @@ if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ] || [ "$OS_VERSION" = "8" 
 		 echo "Verifying if following packages are present or not for $OSNAME linux. Installing required packages..." | log
 		 sudo SUSEConnect -p sle-module-web-scripting/12/x86_64
 		 sudo zypper refresh
-		 sudo zypper --non-interactive install autoconf gcc glibc libmcrypt-devel make libopenssl-devel wget sysstat git subversion
+		 sudo zypper --non-interactive install autoconf gcc glibc libmcrypt-devel make libopenssl-devel wget sysstat git subversion net-tools bind-utils
 		 echo "#######################################################" | log 
 		 echo "Starting Sysstat tool for monitoring" | log 
 		 systemctl enable sysstat && systemctl start sysstat
