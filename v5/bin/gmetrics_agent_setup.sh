@@ -23,10 +23,10 @@ SCRIPTNAME="gmetrics_agent_setup.sh"
 
 # type command is checking whether svn, sar command present or not.
 #######################################################
-type svn >/dev/null 2>&1 || { echo >&2 "This plugin require \"subversion\" package, but it's not installed. Aborting."; exit 1; }
-type sar >/dev/null 2>&1 || { echo >&2 "This plugin require \"sysstat\" package, but it's not installed. Aborting."; exit 1; }
-type netstat >/dev/null 2>&1 || { echo >&2 "This plugin require \"net-tools\" package, but it's not installed. Aborting."; exit 1; }
-type dig >/dev/null 2>&1 || { echo >&2 "This plugin require \"bind-utils\" package for RHEL/CentOs/SUSE/Amazon Linux and \"dnsutils\" for Ubunutu, but it's not installed. Aborting."; exit 1; }
+type svn >/dev/null 2>&1 || { echo >&2 "This plugin require \"subversion\" package, but it's not installed. Aborting."; }
+type sar >/dev/null 2>&1 || { echo >&2 "This plugin require \"sysstat\" package, but it's not installed. Aborting.";  }
+type netstat >/dev/null 2>&1 || { echo >&2 "This plugin require \"net-tools\" package, but it's not installed. Aborting.";  }
+type dig >/dev/null 2>&1 || { echo >&2 "This plugin require \"bind-utils\" package for RHEL/CentOs/SUSE/Amazon Linux and \"dnsutils\" for Ubunutu, but it's not installed. Aborting."; }
 
 # Import Hostname
 #######################################################
@@ -120,6 +120,7 @@ then
 else
         echo "#######################################################" | log
         echo "Gmetrics remote user is present, please remove user and home directory."
+        exit 3
 fi
 }
 
@@ -139,8 +140,7 @@ echo "Gmetrics plugin \"$PLUGINSDIR\" directory successfully created" | log
 
 echo "#######################################################" | log
 echo "Downloading Agent builds under $PLUGINSDIR directory" | log
-#URL="https://github.com/grootsadmin/gmetrics-agent-setup/branches/beta/v5/builds"
-URL="https://github.com/grootsadmin/gmetrics-agent-setup/trunk/v5/builds"
+URL="https://github.com/grootsadmin/gmetrics-agent-setup/branches/alpha/v5/builds"
 svn checkout $URL $PLUGINSDIR > /dev/null &  PID=$!
 echo "THIS PROCESS TAKES SOME TIME, SO PLEASE BE PATIENCE WHILE GMETRICS AGENT INSTALLATION IS RUNNING..." | log
 printf "["
@@ -560,6 +560,9 @@ if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ] || [ "$OS_VERSION" = "8" 
 
 		echo "#######################################################" | log
 		echo "Gmetrics agent installtion starting at [`date`]." | log
+		echo "#######################################################" | log
+		echo "Packages installation requires Internet connection. " | log 
+		
 
         if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ] || [ "$OSNAME" = "Amazon" ]; then
                 echo "#######################################################" | log
@@ -569,6 +572,8 @@ if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ] || [ "$OS_VERSION" = "8" 
                 echo "#######################################################" | log
                 echo "Checking Installed gmetrics required packages." | log
                 echo "You need to install these os libraries packages on the server : sysstat telnet net-tools wget make bind-utils openssl openssl-devel mod_ssl lsof bc" | log
+		echo "#######################################################" | log
+		yum install -y sysstat net-tools bind-utils gcc glibc glibc-common gd gd-devel make net-snmp openssl-devel bind-utils net-snmp-devel net-snmp-utils net-snmp-perl subversion git 
 
         fi
 
@@ -576,6 +581,11 @@ if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ] || [ "$OS_VERSION" = "8" 
                 echo "#######################################################" | log
                 echo "Verifying if following packages are present or not for Centos8.." | log
                 echo "Agent requires following packages on server: tcp_wrappers-libs-6.6-96.el8.x86_64.rpm compat-openssl10 libnsl.so.1 net-snmp-perl gcc glibc glibc-common make gettext automake autoconf wget openssl-devel net-snmp net-snmp-utils epel-release epel" | log
+		echo "#######################################################" | log
+		echo "Installing required packages for Centos 8 " | log 
+		yum install -y sysstat gcc net-tools glibc glibc-common gd gd-devel make net-snmp openssl-devel bind-utils net-snmp-devel net-snmp-utils net-snmp-perl git subversion  
+		yum install compat-openssl10 libnsl.so.1 -y 
+		yum install https://download-ib01.fedoraproject.org/pub/epel/8/Everything/x86_64/Packages/t/tcp_wrappers-libs-7.6-96.el8.x86_64.rpm -y  
 		list=("tcp_wrappers-libs-7.6-96.el8.x86_64" "compat-openssl10" "libnsl" "net-snmp-perl" "gcc" "glibc" "glibc-common" "make" "gettext" "automake" "autoconf" "wget" "openssl-devel" "net-snmp" "net-snmp-utils" "epel-release epel")
 		for package in ${list[@]}; 
 		do
@@ -583,17 +593,18 @@ if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ] || [ "$OS_VERSION" = "8" 
 		done
 
 	fi
-	
+
 	if [ "$OSNAME" = "SUSE" ] && [ "$OS_VERSION" = "12" ]; then
 		 echo "#######################################################" | log
 		 echo "Verifying if following packages are present or not for $OSNAME linux. Installing required packages..." | log
 		 sudo SUSEConnect -p sle-module-web-scripting/12/x86_64
-		 sudo zypper --non-interactive install autoconf gcc glibc libmcrypt-devel make libopenssl-devel wget gettext gettext-runtime automake net-snmp perl-Net-SNMP sysstat 	
+		 sudo zypper refresh
+		 sudo zypper --non-interactive install autoconf gcc glibc libmcrypt-devel make libopenssl-devel wget sysstat git subversion net-tools bind-utils
 		 echo "#######################################################" | log 
 		 echo "Starting Sysstat tool for monitoring" | log 
 		 systemctl enable sysstat && systemctl start sysstat
 		 echo "#######################################################" | log 
-		 groupadd groots && usermod -g groots groots  
+		 groupadd groots && usermod -g groots groots >/dev/null 
 
 	fi
 	
@@ -654,11 +665,16 @@ if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ] || [ "$OS_VERSION" = "8" 
 elif [ "$OSNAME" = "Ubuntu" ]; then
         echo "#######################################################" | log
         echo "Gmetrics agent installtion starting at [`date`]." | log
+	echo "#######################################################" | log
+	echo "Packages installation requires Internet connection. " | log 
         echo "#######################################################" | log
         echo "Verifying if following packages are present or not." | log
         echo "#######################################################" | log
-        echo "Agent gmetrics required packages." | log
         echo "You need to install these os libraries packages on the server : telnet libgd-dev libmcrypt-dev libssl-dev dc snmp libnet-snmp-perl sysstat openssl vim dos2unix git" | log
+	echo "#######################################################" | log
+	echo "Installing required packages for Ubuntu" | log  
+	#apt install -y  gcc glibc glibc-common gd gd-devel make net-snmp openssl-devel bind-utils net-snmp-devel net-snmp-utils net-snmp-perl git subversion 
+	apt install -y autoconf sysstat automake gcc libc6 libmcrypt-dev make libssl-dev wget openssl bc gawk dc build-essential snmp libnet-snmp-perl gettext git subversion
 
         # Gmetrics agent user addition.
         gmetrics_agent_user_addition
