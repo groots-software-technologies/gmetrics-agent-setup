@@ -598,6 +598,7 @@ if [ "$OSNAME" = "CentOS" ] && [ "$OS_VERSION" = "7" ] || [ "$OS_VERSION" = "8" 
 		 echo "#######################################################" | log
 		 echo "Verifying if following packages are present or not for $OSNAME linux. Installing required packages..." | log
 		 sudo SUSEConnect -p sle-module-web-scripting/12/x86_64
+		 sudo zypper refresh
 		 sudo zypper --non-interactive install autoconf gcc glibc libmcrypt-devel make libopenssl-devel wget gettext gettext-runtime automake net-snmp perl-Net-SNMP sysstat 	
 		 echo "#######################################################" | log 
 		 echo "Starting Sysstat tool for monitoring" | log 
