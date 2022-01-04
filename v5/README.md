@@ -3,6 +3,12 @@
 ## Summary
 By using this agent installation script, you will be able to install the gmetrics-agent on remote host with single command. Through this agent perf data will sync with gmetrics-core
 
+## Windows Agent Installation
+
+Plrase Refer this url for wondows remote agent
+
+https://docs.gmetrics.io/docs/windows/agent-installation/
+
 ## Gmetrics-agent script flow - 
 - Check OS background & start installation
 - Add gmetrics-agent system user
